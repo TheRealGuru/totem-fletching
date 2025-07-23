@@ -1,2 +1,2 @@
-# Example
-An example greeter plugin
+# Totem Fletching
+A nice simple plugin to render points and various useful information for the new Varlamore fletching activity. Please feel free to drop suggestions on the github here: https://github.com/TheRealGuru/totem-fletching/issues 

@@ -1,13 +1,13 @@
-package com.example;
+package com.github.therealguru.totemfletching;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 
-public class ExamplePluginTest
+public class TotemFletchingPluginTest
 {
 	public static void main(String[] args) throws Exception
 	{
-		ExternalPluginManager.loadBuiltin(ExamplePlugin.class);
+		ExternalPluginManager.loadBuiltin(TotemFletchingPlugin.class);
 		RuneLite.main(args);
 	}
 }
