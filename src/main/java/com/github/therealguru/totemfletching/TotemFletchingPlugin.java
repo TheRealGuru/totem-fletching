@@ -54,7 +54,7 @@ public class TotemFletchingPlugin extends Plugin {
 
     @Subscribe
     public void onVarbitChanged(final VarbitChanged varbitChanged) {
-        if(varbitChanged.getVarbitId() < 17611 || varbitChanged.getVarbitId() > 17754) return;
+        if (varbitChanged.getVarbitId() < 17611 || varbitChanged.getVarbitId() > 17754) return;
 
         totemService.onVarbitChanged(varbitChanged);
     }
@@ -69,5 +69,11 @@ public class TotemFletchingPlugin extends Plugin {
         totemService.removeGameObject(gameObjectDespawned.getGameObject());
     }
 
+    @Subscribe
+    public void onGameStateChanged(GameStateChanged event) {
+        if (event.getGameState().equals(GameState.LOADING)) {
+            totemService.clearGameObjects();
+        }
+    }
 
 }

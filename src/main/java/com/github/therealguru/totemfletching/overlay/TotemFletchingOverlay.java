@@ -2,6 +2,7 @@ package com.github.therealguru.totemfletching.overlay;
 
 import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.service.TotemService;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.Point;
@@ -54,11 +55,7 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     private Shape getTotemHighlight(Totem totem) {
-        if(!totem.hasTotemStarted() || totem.getTotemGameObject().getConvexHull() == null) {
-            return totem.getTotemGameObject().getCanvasTilePoly();
-        } else {
-            return totem.getTotemGameObject().getConvexHull();
-        }
+        return totem.getTotemGameObject().getClickbox();
     }
 
     Optional<String> getTotemText(Totem totem) {

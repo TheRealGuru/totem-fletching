@@ -4,6 +4,7 @@ import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.model.TotemTier;
 import com.github.therealguru.totemfletching.model.TotemVarbit;
 import com.github.therealguru.totemfletching.action.*;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.GameObject;
 import net.runelite.api.events.VarbitChanged;
 
@@ -24,6 +25,7 @@ public class TotemService {
     );
 
     private static final Map<TotemVarbit, TotemAction> TOTEM_ACTIONS = new HashMap<>();
+
     static {
         TOTEM_ACTIONS.put(TotemVarbit.ANIMAL_1, new AnimalAction(1));
         TOTEM_ACTIONS.put(TotemVarbit.ANIMAL_2, new AnimalAction(2));
@@ -44,30 +46,39 @@ public class TotemService {
 
         TotemVarbit totemVarbit = TotemVarbit.getVarbit(totem, varbitChanged.getVarbitId());
         TotemAction action = TOTEM_ACTIONS.get(totemVarbit);
-        if(action != null) {
+        if (action != null) {
             action.onVarbitChanged(totem, varbitChanged);
         }
     }
 
     public void addGameObject(final GameObject gameObject) {
-        for(Totem totem : TOTEMS) {
-            if(totem.getTotemGameObjectId() == gameObject.getId()) {
+        for (Totem totem : TOTEMS) {
+            if (totem.getTotemGameObjectId() == gameObject.getId()) {
                 totem.setTotemGameObject(gameObject);
-            } else if(totem.getPointsGameObjectId() == gameObject.getId()) {
+            } else if (totem.getPointsGameObjectId() == gameObject.getId()) {
                 totem.setPointsGameObject(gameObject);
             }
         }
+
     }
 
     public void removeGameObject(final GameObject gameObject) {
-        for(Totem totem : TOTEMS) {
-            if(totem.getTotemGameObjectId() == gameObject.getId()) {
+        for (Totem totem : TOTEMS) {
+            if (totem.getTotemGameObjectId() == gameObject.getId()) {
                 totem.setTotemGameObject(null);
-            } else if(totem.getPointsGameObjectId() == gameObject.getId()) {
+            } else if (totem.getPointsGameObjectId() == gameObject.getId()) {
                 totem.setPointsGameObject(null);
             }
         }
     }
+
+    public void clearGameObjects() {
+        getTotems().forEach(totem -> {
+            totem.setTotemGameObject(null);
+            totem.setPointsGameObject(null);
+        });
+    }
+
 
     public List<Totem> getTotems() {
         return TOTEMS;
