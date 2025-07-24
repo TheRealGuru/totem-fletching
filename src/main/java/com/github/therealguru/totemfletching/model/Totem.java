@@ -39,7 +39,7 @@ public class Totem {
     }
 
     public boolean isBuildingTotem() {
-        return base == 4;
+        return base >= 1 && base <= 6;
     }
 
     public boolean isDecorated() {
