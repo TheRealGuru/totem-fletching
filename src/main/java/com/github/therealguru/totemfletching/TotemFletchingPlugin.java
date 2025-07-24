@@ -47,6 +47,11 @@ public class TotemFletchingPlugin extends Plugin {
         overlayManager.add(overlay);
     }
 
+    @Override
+    protected void shutDown() throws Exception {
+        overlayManager.remove(overlay);
+    }
+
     @Provides
     TotemFletchingConfig provideConfig(ConfigManager configManager) {
         return configManager.getConfig(TotemFletchingConfig.class);
