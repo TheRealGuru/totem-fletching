@@ -1,10 +1,9 @@
 package com.github.therealguru.totemfletching.service;
 
+import com.github.therealguru.totemfletching.action.*;
 import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.model.TotemTier;
 import com.github.therealguru.totemfletching.model.TotemVarbit;
-import com.github.therealguru.totemfletching.action.*;
-import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.GameObject;
 import net.runelite.api.events.VarbitChanged;
 
@@ -77,6 +76,18 @@ public class TotemService {
             totem.setTotemGameObject(null);
             totem.setPointsGameObject(null);
         });
+    }
+
+    public Map<Integer, Boolean> getAnimalsProgress(final Totem totem) {
+        Map<Integer, Boolean> result = new HashMap<>();
+
+        for (int animal : totem.getAnimals()) {
+            int progressKey = animal + 9;
+            boolean exists = totem.getProgress().containsValue(progressKey);
+            result.put(animal, exists);
+        }
+
+        return result;
     }
 
 

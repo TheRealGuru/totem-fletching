@@ -15,8 +15,10 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public class TotemFletchingOverlay extends Overlay {
 
     private TotemService totemService;
@@ -24,6 +26,8 @@ public class TotemFletchingOverlay extends Overlay {
 
     public TotemFletchingOverlay(@Nullable Plugin plugin, TotemService totemService, Client client) {
         super(plugin);
+        setPosition(OverlayPosition.DYNAMIC);
+        setLayer(OverlayLayer.ABOVE_SCENE);
         this.totemService = totemService;
         this.client = client;
     }
@@ -31,18 +35,12 @@ public class TotemFletchingOverlay extends Overlay {
     @Override
     public Dimension render(Graphics2D graphics2D) {
         totemService.getTotems().stream().filter(Totem::isRenderable).forEach((totem) -> renderTotem(graphics2D, totem));
-        setPosition(OverlayPosition.DYNAMIC);
-        setLayer(OverlayLayer.ABOVE_SCENE);
         return null;
     }
 
     void renderTotem(Graphics2D graphics2D, Totem totem) {
+        renderTotemHighlight(graphics2D, totem);
         renderPoints(graphics2D, totem);
-
-        Shape shape = getTotemHighlight(totem);
-        if(shape != null) {
-            OverlayUtil.renderPolygon(graphics2D, shape, getTotemColor(totem));
-        }
 
         Optional<String> totemText = getTotemText(totem);
         if(totemText.isPresent()) {
@@ -54,18 +52,36 @@ public class TotemFletchingOverlay extends Overlay {
         }
     }
 
-    private Shape getTotemHighlight(Totem totem) {
-        return totem.getTotemGameObject().getClickbox();
+    private void renderTotemHighlight(Graphics2D graphics2D, Totem totem) {
+        if(totem.hasTotemStarted()) {
+            Shape shape = totem.getTotemGameObject().getClickbox();
+            if(shape != null) {
+                OverlayUtil.renderPolygon(graphics2D, shape, getTotemColor(totem));
+            }
+        } else {
+            OverlayUtil.renderTileOverlay(graphics2D, totem.getTotemGameObject(), null, Color.RED);
+        }
     }
 
     Optional<String> getTotemText(Totem totem) {
         if((!totem.hasTotemStarted() || totem.isBuildingTotem()) && !totem.isCarved()) {
-            return Optional.of(totem.getAnimals()[0] + " " + totem.getAnimals()[1] + " " + totem.getAnimals()[2]);
+            return Optional.of(getAnimalText(totem));
         } else if(!totem.isDecorated()) {
             return Optional.of(totem.getDecoration() + " / 4");
         } else {
             return Optional.empty();
         }
+    }
+
+    private String getAnimalText(final Totem totem) {
+        Map<Integer, Boolean> animalData = totemService.getAnimalsProgress(totem);
+        StringBuilder text = new StringBuilder();
+        for(Map.Entry<Integer, Boolean> entry : animalData.entrySet()) {
+            if(entry.getValue()) continue;
+
+            text.append(entry.getKey()).append(" ");
+        }
+        return text.toString().trim();
     }
 
     public Color getTotemColor(Totem totem) {
