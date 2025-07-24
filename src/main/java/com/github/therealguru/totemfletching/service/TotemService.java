@@ -20,7 +20,8 @@ public class TotemService {
             new Totem(4, 57034, 57038, 17665),
             new Totem(5, 57040, 57044, 17683),
             new Totem(6, 57046, 57050, 17701),
-            new Totem(7, 57052, 57056, 17719)
+            new Totem(7, 57052, 57056, 17719),
+            new Totem(8, 57058, 57062, 17737)
     );
 
     private static final Map<TotemVarbit, TotemAction> TOTEM_ACTIONS = new HashMap<>();
