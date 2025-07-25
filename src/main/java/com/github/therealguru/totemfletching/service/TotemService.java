@@ -10,17 +10,20 @@ import net.runelite.api.events.VarbitChanged;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.runelite.api.gameval.ObjectID;
+import net.runelite.api.gameval.VarbitID;
 
 public class TotemService {
 
     private static final List<Totem> TOTEMS = List.of(
-            new Totem(1, 57016, 57020, 17611),
-            new Totem(2, 57022, 57026, 17629),
-            new Totem(3, 57028, 57032, 17647),
-            new Totem(4, 57034, 57038, 17665),
-            new Totem(5, 57040, 57044, 17683),
-            new Totem(6, 57046, 57050, 17701),
-            new Totem(7, 57052, 57056, 17719)
+            new Totem(1, ObjectID.ENT_TOTEMS_SITE_1_BASE, ObjectID.ENT_TOTEMS_SITE_1_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_1_BASE),
+            new Totem(2, ObjectID.ENT_TOTEMS_SITE_2_BASE, ObjectID.ENT_TOTEMS_SITE_2_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_2_BASE),
+            new Totem(3, ObjectID.ENT_TOTEMS_SITE_3_BASE, ObjectID.ENT_TOTEMS_SITE_3_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_3_BASE),
+            new Totem(4, ObjectID.ENT_TOTEMS_SITE_4_BASE, ObjectID.ENT_TOTEMS_SITE_4_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_4_BASE),
+            new Totem(5, ObjectID.ENT_TOTEMS_SITE_5_BASE, ObjectID.ENT_TOTEMS_SITE_5_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_5_BASE),
+            new Totem(6, ObjectID.ENT_TOTEMS_SITE_6_BASE, ObjectID.ENT_TOTEMS_SITE_6_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_6_BASE),
+            new Totem(7, ObjectID.ENT_TOTEMS_SITE_7_BASE, ObjectID.ENT_TOTEMS_SITE_7_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_7_BASE),
+            new Totem(8, ObjectID.ENT_TOTEMS_SITE_8_BASE, ObjectID.ENT_TOTEMS_SITE_8_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_8_BASE)
     );
 
     private static final Map<TotemVarbit, TotemAction> TOTEM_ACTIONS = new HashMap<>();
