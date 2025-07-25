@@ -13,7 +13,6 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 import java.awt.*;
 
 public class EntTrailOverlay extends Overlay {
-
     private final EntTrailService service;
     private final TotemFletchingConfig config;
 
@@ -27,17 +26,16 @@ public class EntTrailOverlay extends Overlay {
 
     @Override
     public Dimension render(Graphics2D graphics) {
-        if(!config.renderEntTrails()) return null;
+        if (!config.renderEntTrails()) {return null;}
 
         for(GameObject object : service.getInactiveEntTrails()) {
             if(object == null) continue;
-
             renderEntTrail(object, graphics);
         }
         return null;
     }
 
     void renderEntTrail(final GameObject gameObject, Graphics2D graphics2D) {
-        OverlayUtil.renderTileOverlay(graphics2D, gameObject, null, Color.RED);
+        OverlayUtil.renderTileOverlay(graphics2D, gameObject, null, config.entTrailColor());
     }
 }

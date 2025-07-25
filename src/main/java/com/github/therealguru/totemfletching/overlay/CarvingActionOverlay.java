@@ -33,7 +33,7 @@ public class CarvingActionOverlay extends Overlay {
 
     @Override
     public Dimension render(Graphics2D graphics2D) {
-        if(!config.renderCarvingOverlay()) return null;
+        if(!config.renderChatboxOptions()) return null;
 
         Totem totem = totemService.getClosestTotem();
         if (totem == null) return null;
@@ -44,7 +44,6 @@ public class CarvingActionOverlay extends Overlay {
         }
 
         Map<Integer, Boolean> carved = totemService.getAnimalsProgress(totem);
-
         for (Map.Entry<Integer, Boolean> state : carved.entrySet()) {
             if (state.getValue()) continue;
 
