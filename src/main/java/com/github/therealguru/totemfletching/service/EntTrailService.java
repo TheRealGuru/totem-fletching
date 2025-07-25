@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class EntTrailService {
 
     private static final List<Integer> ENT_TRAIL_GAME_OBJECT_IDS = List.of(57115, 57116);
-    private static final List<Integer> ENT_TRAIL_INACTIVE_ANIMATION_IDS = List.of(12345);
+    private static final List<Integer> ENT_TRAIL_INACTIVE_ANIMATION_IDS = List.of(12344, 12345);
     private static final List<Integer> ENT_TRAIL_ACTIVE_ANIMATION_IDS = List.of(12346);
 
     private final List<GameObject> entTrails = new ArrayList<>();
