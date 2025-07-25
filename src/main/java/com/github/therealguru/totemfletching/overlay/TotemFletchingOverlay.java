@@ -94,7 +94,7 @@ public class TotemFletchingOverlay extends Overlay {
         final LocalPoint localPoint = LocalPoint.fromWorld(client.getTopLevelWorldView(), gameObject.getWorldLocation());
         if (localPoint == null) return;
 
-        var points = totem.getPoints();
+        int points = totem.getPoints();
         if (points <= 0) return;
 
         final String text = totem.getPoints() + "";
