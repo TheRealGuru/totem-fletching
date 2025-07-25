@@ -57,7 +57,6 @@ public class TotemFletchingPlugin extends Plugin {
         overlayManager.remove(entTrailOverlay);
     }
 
-    @Provides
     TotemFletchingConfig provideConfig(ConfigManager configManager) {
         return configManager.getConfig(TotemFletchingConfig.class);
     }
