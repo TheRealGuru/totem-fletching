@@ -42,7 +42,7 @@ public class TotemFletchingPlugin extends Plugin {
     protected void startUp() throws Exception {
         totemService = new TotemService();
         entTrailService = new EntTrailService();
-        gameOverlay = new TotemFletchingOverlay(this, totemService, client);
+        gameOverlay = new TotemFletchingOverlay(this, config, totemService, client);
         carvingOverlay = new CarvingActionOverlay(totemService, config, client);
         entTrailOverlay = new EntTrailOverlay(this, config, entTrailService, client);
         overlayManager.add(gameOverlay);
