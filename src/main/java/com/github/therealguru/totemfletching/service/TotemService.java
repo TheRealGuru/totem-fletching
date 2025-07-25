@@ -4,7 +4,9 @@ import com.github.therealguru.totemfletching.action.*;
 import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.model.TotemTier;
 import com.github.therealguru.totemfletching.model.TotemVarbit;
+import lombok.Getter;
 import net.runelite.api.GameObject;
+import net.runelite.api.Player;
 import net.runelite.api.events.VarbitChanged;
 
 import java.util.HashMap;
@@ -20,7 +22,8 @@ public class TotemService {
             new Totem(4, 57034, 57038, 17665),
             new Totem(5, 57040, 57044, 17683),
             new Totem(6, 57046, 57050, 17701),
-            new Totem(7, 57052, 57056, 17719)
+            new Totem(7, 57052, 57056, 17719),
+            new Totem(8, 57058, 57062, 17737)
     );
 
     private static final Map<TotemVarbit, TotemAction> TOTEM_ACTIONS = new HashMap<>();
@@ -38,6 +41,9 @@ public class TotemService {
         TOTEM_ACTIONS.put(TotemVarbit.MID, new TotemTierAction(TotemTier.MID));
         TOTEM_ACTIONS.put(TotemVarbit.TOP, new TotemTierAction(TotemTier.TOP));
     }
+
+    @Getter
+    private Totem closestTotem = null;
 
     public void onVarbitChanged(final VarbitChanged varbitChanged) {
         Totem totem = TOTEMS.stream().filter(t -> t.isVarbitRelated(varbitChanged.getVarbitId())).findFirst().orElse(null);
@@ -93,5 +99,13 @@ public class TotemService {
 
     public List<Totem> getTotems() {
         return TOTEMS;
+    }
+
+    public void updateClosestTotem(Player player) {
+        closestTotem = getTotems().stream()
+                .filter(totem -> totem.getTotemGameObject() != null)
+                .filter(totem -> totem.getTotemGameObject().getWorldLocation().distanceTo(player.getWorldLocation()) <= 10)
+                .findFirst()
+                .orElse(null);
     }
 }

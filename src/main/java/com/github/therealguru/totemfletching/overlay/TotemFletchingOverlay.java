@@ -43,19 +43,19 @@ public class TotemFletchingOverlay extends Overlay {
         renderPoints(graphics2D, totem);
 
         Optional<String> totemText = getTotemText(totem);
-        if(totemText.isPresent()) {
+        if (totemText.isPresent()) {
             String text = totemText.get();
             Point canvasPoint = totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, 16);
-            if(canvasPoint != null) {
+            if (canvasPoint != null) {
                 OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, Color.GREEN);
             }
         }
     }
 
     private void renderTotemHighlight(Graphics2D graphics2D, Totem totem) {
-        if(totem.hasTotemStarted()) {
+        if (totem.hasTotemStarted()) {
             Shape shape = totem.getTotemGameObject().getClickbox();
-            if(shape != null) {
+            if (shape != null) {
                 OverlayUtil.renderPolygon(graphics2D, shape, getTotemColor(totem));
             }
         } else {
@@ -64,9 +64,9 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     Optional<String> getTotemText(Totem totem) {
-        if((!totem.hasTotemStarted() || totem.isBuildingTotem()) && !totem.isCarved()) {
+        if ((!totem.hasTotemStarted() || totem.isBuildingTotem()) && !totem.isCarved()) {
             return Optional.of(getAnimalText(totem));
-        } else if(!totem.isDecorated()) {
+        } else if (!totem.isDecorated()) {
             return Optional.of(totem.getDecoration() + " / 4");
         } else {
             return Optional.empty();
@@ -76,8 +76,8 @@ public class TotemFletchingOverlay extends Overlay {
     private String getAnimalText(final Totem totem) {
         Map<Integer, Boolean> animalData = totemService.getAnimalsProgress(totem);
         StringBuilder text = new StringBuilder();
-        for(Map.Entry<Integer, Boolean> entry : animalData.entrySet()) {
-            if(entry.getValue()) continue;
+        for (Map.Entry<Integer, Boolean> entry : animalData.entrySet()) {
+            if (entry.getValue()) continue;
 
             text.append(entry.getKey()).append(" ");
         }
@@ -92,12 +92,12 @@ public class TotemFletchingOverlay extends Overlay {
         GameObject gameObject = totem.getPointsGameObject();
 
         final LocalPoint localPoint = LocalPoint.fromWorld(client.getTopLevelWorldView(), gameObject.getWorldLocation());
-        if(localPoint == null) return;
+        if (localPoint == null) return;
 
         final String text = totem.getPoints() + "";
 
         Point canvasPoint = totem.getPointsGameObject().getCanvasTextLocation(graphics2D, text, 16);
-        if(canvasPoint == null) return;
+        if (canvasPoint == null) return;
 
         OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, Color.GREEN);
     }
