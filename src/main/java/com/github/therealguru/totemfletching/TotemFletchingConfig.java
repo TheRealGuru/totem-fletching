@@ -51,7 +51,7 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "renderPoints",
-            name = "Show Points Overlay on ",
+            name = "Show Points Overlay",
             description = "Draw the overlay over totems",
             section = sectionOverlays,
             position = 3
