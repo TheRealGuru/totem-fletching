@@ -9,7 +9,6 @@ import java.util.Map;
 
 @Data
 public class Totem {
-
     private int totemId;
     private int totemGameObjectId;
     private int pointsGameObjectId;

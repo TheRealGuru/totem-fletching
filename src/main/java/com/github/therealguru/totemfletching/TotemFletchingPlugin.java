@@ -21,10 +21,9 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 @Slf4j
 @PluginDescriptor(
-        name = "Totem Fletching"
+    name = "Totem Fletching"
 )
 public class TotemFletchingPlugin extends Plugin {
-
     @Inject
     private Client client;
     @Inject
@@ -32,19 +31,23 @@ public class TotemFletchingPlugin extends Plugin {
     @Inject
     private OverlayManager overlayManager;
 
-    private TotemService totemService;
+    // Services
+    @Inject
     private EntTrailService entTrailService;
-    private TotemFletchingOverlay gameOverlay;
+    @Inject
+    private TotemService totemService;
+
+    // Overlays
+    @Inject
     private CarvingActionOverlay carvingOverlay;
+    @Inject
     private EntTrailOverlay entTrailOverlay;
+    @Inject
+    private TotemFletchingOverlay gameOverlay;
 
     @Override
     protected void startUp() throws Exception {
-        totemService = new TotemService();
-        entTrailService = new EntTrailService();
-        gameOverlay = new TotemFletchingOverlay(this, totemService, client);
-        carvingOverlay = new CarvingActionOverlay(totemService, config, client);
-        entTrailOverlay = new EntTrailOverlay(this, config, entTrailService, client);
+        // Overlays
         overlayManager.add(gameOverlay);
         overlayManager.add(carvingOverlay);
         overlayManager.add(entTrailOverlay);
