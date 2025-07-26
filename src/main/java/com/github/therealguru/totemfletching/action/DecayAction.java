@@ -5,7 +5,6 @@ import com.github.therealguru.totemfletching.model.TotemVarbit;
 import net.runelite.api.events.VarbitChanged;
 
 public class DecayAction extends TotemAction {
-
     public DecayAction() {
         super(TotemVarbit.DECAY);
     }

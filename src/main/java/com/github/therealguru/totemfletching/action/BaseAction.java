@@ -5,7 +5,6 @@ import com.github.therealguru.totemfletching.model.TotemVarbit;
 import net.runelite.api.events.VarbitChanged;
 
 public class BaseAction extends TotemAction {
-
     public BaseAction() {
         super(TotemVarbit.BASE);
     }

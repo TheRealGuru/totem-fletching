@@ -11,12 +11,14 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.awt.*;
 import java.util.Map;
 
 @Slf4j
+@Singleton
 public class CarvingActionOverlay extends Overlay {
-
     private static final int TOTEM_CARVING_WIDGET = 270;
     private static final int TOTEM_CARVING_TEXT_WIDGET = 5;
     private static final String ACTION_TEXT = "What animal would you like to carve?";
@@ -25,6 +27,7 @@ public class CarvingActionOverlay extends Overlay {
     private final TotemService totemService;
     private final TotemFletchingConfig config;
 
+    @Inject
     public CarvingActionOverlay(TotemService service, TotemFletchingConfig config, Client client) {
         super();
         this.client = client;

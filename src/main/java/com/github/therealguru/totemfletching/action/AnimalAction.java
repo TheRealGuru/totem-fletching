@@ -5,7 +5,6 @@ import com.github.therealguru.totemfletching.model.TotemVarbit;
 import net.runelite.api.events.VarbitChanged;
 
 public class AnimalAction extends TotemAction {
-
     private final int animal;
 
     public AnimalAction(int animal) {

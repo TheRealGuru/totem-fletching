@@ -6,7 +6,6 @@ import com.github.therealguru.totemfletching.model.TotemVarbit;
 import net.runelite.api.events.VarbitChanged;
 
 public class TotemTierAction extends TotemAction {
-
     private final TotemTier totemTier;
 
     public TotemTierAction(TotemTier tier) {

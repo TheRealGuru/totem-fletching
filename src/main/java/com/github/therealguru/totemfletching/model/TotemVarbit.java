@@ -3,7 +3,6 @@ package com.github.therealguru.totemfletching.model;
 import java.util.Arrays;
 
 public enum TotemVarbit {
-
     BASE(0),
     BASE_CARVED(1),
     BASE_MULTILOC(2),
@@ -24,7 +23,7 @@ public enum TotemVarbit {
     ALL_MULTIANIMALS(17);
 
 
-    private int relativeVarbit;
+    private final int relativeVarbit;
 
     TotemVarbit(int relativeVarbit) {
         this.relativeVarbit = relativeVarbit;

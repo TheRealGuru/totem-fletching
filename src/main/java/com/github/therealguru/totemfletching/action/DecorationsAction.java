@@ -5,7 +5,6 @@ import com.github.therealguru.totemfletching.model.TotemVarbit;
 import net.runelite.api.events.VarbitChanged;
 
 public class DecorationsAction extends TotemAction {
-
     public DecorationsAction() {
         super(TotemVarbit.DECORATIONS);
     }
