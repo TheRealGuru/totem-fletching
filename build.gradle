@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'com.diffplug.spotless' version '6.25.0'
+    id 'com.diffplug.spotless' version '6.25.0' apply false
 }
 
 repositories {
@@ -61,35 +61,30 @@ tasks.register('shadowJar', Jar) {
     archiveFileName.set("${rootProject.name}-${project.version}-all.jar")
 }
 
-spotless {
-    java {
-        target 'src/**/*.java'
+if (project.hasProperty('runSpotless')) {
+    apply plugin: 'com.diffplug.spotless'
+    spotless {
+        java {
+            target 'src/**/*.java'
 
-        googleJavaFormat().aosp()
-        removeUnusedImports()
-        endWithNewline()
-        trimTrailingWhitespace()
+            googleJavaFormat().aosp()
+            removeUnusedImports()
+            endWithNewline()
+            trimTrailingWhitespace()
+        }
+
+        groovy {
+            target '**/*.gradle'
+            greclipse()
+            indentWithSpaces(4)
+            trimTrailingWhitespace()
+            endWithNewline()
+        }
+
+        format 'properties', {
+            target '**/*.properties'
+            trimTrailingWhitespace()
+            endWithNewline()
+        }
     }
-
-    groovy {
-        target '**/*.gradle'
-        greclipse()
-        indentWithSpaces(4)
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-
-    format 'properties', {
-        target '**/*.properties'
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-}
-
-tasks.named('spotlessCheck') {
-    enabled = project.hasProperty('runSpotless')
-}
-
-tasks.named('spotlessApply') {
-    enabled = project.hasProperty('runSpotless')
 }
