@@ -114,7 +114,7 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "carvingInterfaceColor",
-            name = "carvingInterfaceHighlightColor",
+            name = "Carving Highlight Color",
             description =
                     "Choose the color used to highlight the correct actions in the carving UI",
             section = sectionColors,
