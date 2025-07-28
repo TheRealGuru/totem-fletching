@@ -5,6 +5,7 @@ import com.github.therealguru.totemfletching.overlay.EntTrailOverlay;
 import com.github.therealguru.totemfletching.overlay.TotemFletchingOverlay;
 import com.github.therealguru.totemfletching.service.EntTrailService;
 import com.github.therealguru.totemfletching.service.TotemService;
+import com.google.inject.Provides;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -49,6 +50,7 @@ public class TotemFletchingPlugin extends Plugin {
         overlayManager.remove(entTrailOverlay);
     }
 
+    @Provides
     TotemFletchingConfig provideConfig(ConfigManager configManager) {
         return configManager.getConfig(TotemFletchingConfig.class);
     }

@@ -89,7 +89,7 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 1)
     default Color totemCompleteColor() {
-        return Color.decode("#e3ffd7");
+        return Color.decode("#9CF575");
     }
 
     @ConfigItem(
@@ -99,7 +99,7 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 2)
     default Color totemIncompleteColor() {
-        return Color.decode("#e5a3a3");
+        return Color.decode("#E45F5F");
     }
 
     @ConfigItem(
@@ -110,5 +110,15 @@ public interface TotemFletchingConfig extends Config {
             position = 3)
     default Color entTrailColor() {
         return Color.decode("#e4fff6");
+    }
+
+    @ConfigItem(
+            keyName = "carvingInterfaceColor",
+            name = "carvingInterfaceHighlightColor",
+            description = "Choose the color used to highlight the correct actions in the carving UI",
+            section = sectionColors,
+            position = 4)
+    default Color carvingInterfaceColor() {
+        return Color.decode("#9CF575");
     }
 }

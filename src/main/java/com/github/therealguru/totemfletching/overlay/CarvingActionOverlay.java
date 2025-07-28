@@ -60,7 +60,7 @@ public class CarvingActionOverlay extends Overlay {
     private void renderOverlay(Graphics2D graphics, Widget childWidget) {
         Rectangle bounds = childWidget.getBounds();
         if (bounds != null) {
-            graphics.setColor(Color.GREEN);
+            graphics.setColor(config.carvingInterfaceColor());
             graphics.setStroke(new BasicStroke(2));
             graphics.draw(bounds);
         }
