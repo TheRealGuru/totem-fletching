@@ -1,5 +1,6 @@
 package com.github.therealguru.totemfletching.overlay;
 
+import com.github.therealguru.totemfletching.TotemFletchingConfig;
 import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.service.TotemService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,16 +21,17 @@ import java.util.Optional;
 
 @Slf4j
 public class TotemFletchingOverlay extends Overlay {
+    private final TotemService totemService;
+    private final Client client;
+    private final TotemFletchingConfig config;
 
-    private TotemService totemService;
-    private Client client;
-
-    public TotemFletchingOverlay(@Nullable Plugin plugin, TotemService totemService, Client client) {
+    public TotemFletchingOverlay(@Nullable Plugin plugin, TotemFletchingConfig config, TotemService totemService, Client client) {
         super(plugin);
         setPosition(OverlayPosition.DYNAMIC);
         setLayer(OverlayLayer.ABOVE_SCENE);
         this.totemService = totemService;
         this.client = client;
+        this.config = config;
     }
 
     @Override
@@ -39,6 +41,7 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     void renderTotem(Graphics2D graphics2D, Totem totem) {
+        if (!config.renderTextOverlays()) return;
         renderTotemHighlight(graphics2D, totem);
         renderPoints(graphics2D, totem);
 
@@ -47,19 +50,21 @@ public class TotemFletchingOverlay extends Overlay {
             String text = totemText.get();
             Point canvasPoint = totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, 16);
             if (canvasPoint != null) {
-                OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, Color.GREEN);
+                OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.overlayTextColor());
             }
         }
     }
 
     private void renderTotemHighlight(Graphics2D graphics2D, Totem totem) {
+        if (!config.renderTotemOverlays()) return;
+
         if (totem.hasTotemStarted()) {
             Shape shape = totem.getTotemGameObject().getClickbox();
             if (shape != null) {
                 OverlayUtil.renderPolygon(graphics2D, shape, getTotemColor(totem));
             }
         } else {
-            OverlayUtil.renderTileOverlay(graphics2D, totem.getTotemGameObject(), null, Color.RED);
+            OverlayUtil.renderTileOverlay(graphics2D, totem.getTotemGameObject(), null, config.totemIncompleteColor());
         }
     }
 
@@ -85,20 +90,21 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     public Color getTotemColor(Totem totem) {
-        return totem.isCarved() && totem.isDecorated() ? Color.GREEN : Color.RED;
+        return totem.isCarved() && totem.isDecorated() ? config.totemCompleteColor() : config.totemIncompleteColor();
     }
 
     void renderPoints(Graphics2D graphics2D, Totem totem) {
-        GameObject gameObject = totem.getPointsGameObject();
+        if (!config.renderPoints()) return;
 
+        Client client = this.client;
+        GameObject gameObject = totem.getPointsGameObject();
         final LocalPoint localPoint = LocalPoint.fromWorld(client.getTopLevelWorldView(), gameObject.getWorldLocation());
         if (localPoint == null) return;
 
-        final String text = totem.getPoints() + "";
-
-        Point canvasPoint = totem.getPointsGameObject().getCanvasTextLocation(graphics2D, text, 16);
+        String text = Integer.toString(totem.getPoints());
+        Point canvasPoint = gameObject.getCanvasTextLocation(graphics2D, text, 16);
         if (canvasPoint == null) return;
 
-        OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, Color.GREEN);
+        OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.overlayTextColor());
     }
 }
