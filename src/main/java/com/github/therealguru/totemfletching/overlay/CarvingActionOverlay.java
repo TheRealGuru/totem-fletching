@@ -3,15 +3,13 @@ package com.github.therealguru.totemfletching.overlay;
 import com.github.therealguru.totemfletching.TotemFletchingConfig;
 import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.service.TotemService;
+import java.awt.*;
+import java.util.Map;
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
-
-import java.awt.*;
-import java.util.Map;
-
 
 public class CarvingActionOverlay extends Overlay {
 
@@ -33,7 +31,7 @@ public class CarvingActionOverlay extends Overlay {
 
     @Override
     public Dimension render(Graphics2D graphics2D) {
-        if(!config.renderChatboxOptions()) return null;
+        if (!config.renderChatboxOptions()) return null;
 
         Totem totem = totemService.getClosestTotem();
         if (totem == null) return null;

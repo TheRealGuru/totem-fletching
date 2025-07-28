@@ -4,29 +4,60 @@ import com.github.therealguru.totemfletching.action.*;
 import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.model.TotemTier;
 import com.github.therealguru.totemfletching.model.TotemVarbit;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 import net.runelite.api.GameObject;
 import net.runelite.api.Player;
 import net.runelite.api.events.VarbitChanged;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.runelite.api.gameval.ObjectID;
 import net.runelite.api.gameval.VarbitID;
 
 public class TotemService {
 
-    private static final List<Totem> TOTEMS = List.of(
-            new Totem(1, ObjectID.ENT_TOTEMS_SITE_1_BASE, ObjectID.ENT_TOTEMS_SITE_1_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_1_BASE),
-            new Totem(2, ObjectID.ENT_TOTEMS_SITE_2_BASE, ObjectID.ENT_TOTEMS_SITE_2_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_2_BASE),
-            new Totem(3, ObjectID.ENT_TOTEMS_SITE_3_BASE, ObjectID.ENT_TOTEMS_SITE_3_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_3_BASE),
-            new Totem(4, ObjectID.ENT_TOTEMS_SITE_4_BASE, ObjectID.ENT_TOTEMS_SITE_4_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_4_BASE),
-            new Totem(5, ObjectID.ENT_TOTEMS_SITE_5_BASE, ObjectID.ENT_TOTEMS_SITE_5_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_5_BASE),
-            new Totem(6, ObjectID.ENT_TOTEMS_SITE_6_BASE, ObjectID.ENT_TOTEMS_SITE_6_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_6_BASE),
-            new Totem(7, ObjectID.ENT_TOTEMS_SITE_7_BASE, ObjectID.ENT_TOTEMS_SITE_7_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_7_BASE),
-            new Totem(8, ObjectID.ENT_TOTEMS_SITE_8_BASE, ObjectID.ENT_TOTEMS_SITE_8_OFFERINGS, VarbitID.ENT_TOTEMS_SITE_8_BASE)
-    );
+    private static final List<Totem> TOTEMS =
+            List.of(
+                    new Totem(
+                            1,
+                            ObjectID.ENT_TOTEMS_SITE_1_BASE,
+                            ObjectID.ENT_TOTEMS_SITE_1_OFFERINGS,
+                            VarbitID.ENT_TOTEMS_SITE_1_BASE),
+                    new Totem(
+                            2,
+                            ObjectID.ENT_TOTEMS_SITE_2_BASE,
+                            ObjectID.ENT_TOTEMS_SITE_2_OFFERINGS,
+                            VarbitID.ENT_TOTEMS_SITE_2_BASE),
+                    new Totem(
+                            3,
+                            ObjectID.ENT_TOTEMS_SITE_3_BASE,
+                            ObjectID.ENT_TOTEMS_SITE_3_OFFERINGS,
+                            VarbitID.ENT_TOTEMS_SITE_3_BASE),
+                    new Totem(
+                            4,
+                            ObjectID.ENT_TOTEMS_SITE_4_BASE,
+                            ObjectID.ENT_TOTEMS_SITE_4_OFFERINGS,
+                            VarbitID.ENT_TOTEMS_SITE_4_BASE),
+                    new Totem(
+                            5,
+                            ObjectID.ENT_TOTEMS_SITE_5_BASE,
+                            ObjectID.ENT_TOTEMS_SITE_5_OFFERINGS,
+                            VarbitID.ENT_TOTEMS_SITE_5_BASE),
+                    new Totem(
+                            6,
+                            ObjectID.ENT_TOTEMS_SITE_6_BASE,
+                            ObjectID.ENT_TOTEMS_SITE_6_OFFERINGS,
+                            VarbitID.ENT_TOTEMS_SITE_6_BASE),
+                    new Totem(
+                            7,
+                            ObjectID.ENT_TOTEMS_SITE_7_BASE,
+                            ObjectID.ENT_TOTEMS_SITE_7_OFFERINGS,
+                            VarbitID.ENT_TOTEMS_SITE_7_BASE),
+                    new Totem(
+                            8,
+                            ObjectID.ENT_TOTEMS_SITE_8_BASE,
+                            ObjectID.ENT_TOTEMS_SITE_8_OFFERINGS,
+                            VarbitID.ENT_TOTEMS_SITE_8_BASE));
 
     private static final Map<TotemVarbit, TotemAction> TOTEM_ACTIONS = new HashMap<>();
 
@@ -44,11 +75,14 @@ public class TotemService {
         TOTEM_ACTIONS.put(TotemVarbit.TOP, new TotemTierAction(TotemTier.TOP));
     }
 
-    @Getter
-    private Totem closestTotem = null;
+    @Getter private Totem closestTotem = null;
 
     public void onVarbitChanged(final VarbitChanged varbitChanged) {
-        Totem totem = TOTEMS.stream().filter(t -> t.isVarbitRelated(varbitChanged.getVarbitId())).findFirst().orElse(null);
+        Totem totem =
+                TOTEMS.stream()
+                        .filter(t -> t.isVarbitRelated(varbitChanged.getVarbitId()))
+                        .findFirst()
+                        .orElse(null);
         if (totem == null) return;
 
         TotemVarbit totemVarbit = TotemVarbit.getVarbit(totem, varbitChanged.getVarbitId());
@@ -66,7 +100,6 @@ public class TotemService {
                 totem.setPointsGameObject(gameObject);
             }
         }
-
     }
 
     public void removeGameObject(final GameObject gameObject) {
@@ -80,10 +113,12 @@ public class TotemService {
     }
 
     public void clearGameObjects() {
-        getTotems().forEach(totem -> {
-            totem.setTotemGameObject(null);
-            totem.setPointsGameObject(null);
-        });
+        getTotems()
+                .forEach(
+                        totem -> {
+                            totem.setTotemGameObject(null);
+                            totem.setPointsGameObject(null);
+                        });
     }
 
     public Map<Integer, Boolean> getAnimalsProgress(final Totem totem) {
@@ -98,16 +133,21 @@ public class TotemService {
         return result;
     }
 
-
     public List<Totem> getTotems() {
         return TOTEMS;
     }
 
     public void updateClosestTotem(Player player) {
-        closestTotem = getTotems().stream()
-                .filter(totem -> totem.getTotemGameObject() != null)
-                .filter(totem -> totem.getTotemGameObject().getWorldLocation().distanceTo(player.getWorldLocation()) <= 10)
-                .findFirst()
-                .orElse(null);
+        closestTotem =
+                getTotems().stream()
+                        .filter(totem -> totem.getTotemGameObject() != null)
+                        .filter(
+                                totem ->
+                                        totem.getTotemGameObject()
+                                                        .getWorldLocation()
+                                                        .distanceTo(player.getWorldLocation())
+                                                <= 10)
+                        .findFirst()
+                        .orElse(null);
     }
 }

@@ -3,6 +3,10 @@ package com.github.therealguru.totemfletching.overlay;
 import com.github.therealguru.totemfletching.TotemFletchingConfig;
 import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.service.TotemService;
+import java.awt.*;
+import java.util.Map;
+import java.util.Optional;
+import javax.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
@@ -14,18 +18,17 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
-import javax.annotation.Nullable;
-import java.awt.*;
-import java.util.Map;
-import java.util.Optional;
-
 @Slf4j
 public class TotemFletchingOverlay extends Overlay {
     private final TotemService totemService;
     private final Client client;
     private final TotemFletchingConfig config;
 
-    public TotemFletchingOverlay(@Nullable Plugin plugin, TotemFletchingConfig config, TotemService totemService, Client client) {
+    public TotemFletchingOverlay(
+            @Nullable Plugin plugin,
+            TotemFletchingConfig config,
+            TotemService totemService,
+            Client client) {
         super(plugin);
         setPosition(OverlayPosition.DYNAMIC);
         setLayer(OverlayLayer.ABOVE_SCENE);
@@ -36,7 +39,9 @@ public class TotemFletchingOverlay extends Overlay {
 
     @Override
     public Dimension render(Graphics2D graphics2D) {
-        totemService.getTotems().stream().filter(Totem::isRenderable).forEach((totem) -> renderTotem(graphics2D, totem));
+        totemService.getTotems().stream()
+                .filter(Totem::isRenderable)
+                .forEach((totem) -> renderTotem(graphics2D, totem));
         return null;
     }
 
@@ -48,9 +53,11 @@ public class TotemFletchingOverlay extends Overlay {
         Optional<String> totemText = getTotemText(totem);
         if (totemText.isPresent()) {
             String text = totemText.get();
-            Point canvasPoint = totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, 16);
+            Point canvasPoint =
+                    totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, 16);
             if (canvasPoint != null) {
-                OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.overlayTextColor());
+                OverlayUtil.renderTextLocation(
+                        graphics2D, canvasPoint, text, config.overlayTextColor());
             }
         }
     }
@@ -64,12 +71,13 @@ public class TotemFletchingOverlay extends Overlay {
                 OverlayUtil.renderPolygon(graphics2D, shape, getTotemColor(totem));
             }
         } else {
-            OverlayUtil.renderTileOverlay(graphics2D, totem.getTotemGameObject(), null, config.totemIncompleteColor());
+            OverlayUtil.renderTileOverlay(
+                    graphics2D, totem.getTotemGameObject(), null, config.totemIncompleteColor());
         }
     }
 
     Optional<String> getTotemText(Totem totem) {
-        if(!totem.isCarved()) {
+        if (!totem.isCarved()) {
             return Optional.of(getAnimalText(totem));
         } else if (!totem.isDecorated()) {
             return Optional.of(totem.getDecoration() + " / 4");
@@ -90,7 +98,9 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     public Color getTotemColor(Totem totem) {
-        return totem.isCarved() && totem.isDecorated() ? config.totemCompleteColor() : config.totemIncompleteColor();
+        return totem.isCarved() && totem.isDecorated()
+                ? config.totemCompleteColor()
+                : config.totemIncompleteColor();
     }
 
     void renderPoints(Graphics2D graphics2D, Totem totem) {
@@ -98,7 +108,8 @@ public class TotemFletchingOverlay extends Overlay {
 
         Client client = this.client;
         GameObject gameObject = totem.getPointsGameObject();
-        final LocalPoint localPoint = LocalPoint.fromWorld(client.getTopLevelWorldView(), gameObject.getWorldLocation());
+        final LocalPoint localPoint =
+                LocalPoint.fromWorld(client.getTopLevelWorldView(), gameObject.getWorldLocation());
         if (localPoint == null) return;
 
         String text = Integer.toString(totem.getPoints());

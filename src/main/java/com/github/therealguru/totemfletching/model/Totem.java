@@ -1,11 +1,9 @@
 package com.github.therealguru.totemfletching.model;
 
-import lombok.Data;
-import net.runelite.api.GameObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
+import lombok.Data;
+import net.runelite.api.GameObject;
 
 @Data
 public class Totem {
@@ -69,5 +67,4 @@ public class Totem {
     public boolean isRenderable() {
         return totemGameObject != null && pointsGameObject != null;
     }
-
 }

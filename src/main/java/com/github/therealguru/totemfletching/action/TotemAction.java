@@ -9,8 +9,7 @@ import net.runelite.api.events.VarbitChanged;
 @RequiredArgsConstructor
 public abstract class TotemAction {
 
-    @Getter
-    private final TotemVarbit varbit;
+    @Getter private final TotemVarbit varbit;
 
     public abstract void onVarbitChanged(Totem totem, VarbitChanged varbitChanged);
 }
