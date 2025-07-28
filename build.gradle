@@ -1,6 +1,16 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    if (gradle.startParameter.taskNames.any { it.contains('spotless') }) {
+        dependencies {
+            classpath("com.diffplug.gradle.spotless:com.diffplug.gradle.spotless.gradle.plugin:7.2.1")
+        }
+    }
+}
+
 plugins {
     id 'java'
-    id 'com.diffplug.spotless' version '6.25.0' apply false
 }
 
 repositories {
@@ -61,7 +71,7 @@ tasks.register('shadowJar', Jar) {
     archiveFileName.set("${rootProject.name}-${project.version}-all.jar")
 }
 
-if (project.hasProperty('runSpotless')) {
+if (gradle.startParameter.taskNames.any { it.contains('spotless') }) {
     apply plugin: 'com.diffplug.spotless'
     spotless {
         java {
