@@ -4,7 +4,9 @@ import com.github.therealguru.totemfletching.action.*;
 import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.model.TotemTier;
 import com.github.therealguru.totemfletching.model.TotemVarbit;
+import lombok.Getter;
 import net.runelite.api.GameObject;
+import net.runelite.api.Player;
 import net.runelite.api.events.VarbitChanged;
 
 import java.util.HashMap;
@@ -41,6 +43,9 @@ public class TotemService {
         TOTEM_ACTIONS.put(TotemVarbit.MID, new TotemTierAction(TotemTier.MID));
         TOTEM_ACTIONS.put(TotemVarbit.TOP, new TotemTierAction(TotemTier.TOP));
     }
+
+    @Getter
+    private Totem closestTotem = null;
 
     public void onVarbitChanged(final VarbitChanged varbitChanged) {
         Totem totem = TOTEMS.stream().filter(t -> t.isVarbitRelated(varbitChanged.getVarbitId())).findFirst().orElse(null);
@@ -96,5 +101,13 @@ public class TotemService {
 
     public List<Totem> getTotems() {
         return TOTEMS;
+    }
+
+    public void updateClosestTotem(Player player) {
+        closestTotem = getTotems().stream()
+                .filter(totem -> totem.getTotemGameObject() != null)
+                .filter(totem -> totem.getTotemGameObject().getWorldLocation().distanceTo(player.getWorldLocation()) <= 10)
+                .findFirst()
+                .orElse(null);
     }
 }
