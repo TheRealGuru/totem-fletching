@@ -9,6 +9,6 @@ This project is open for contribution.
 
 Please ensure your code is formatted with spotless using google-java-format (with 4 tab space).
 
-`./gradlew spotlessCheck` to check if it is formatted
+`./gradlew spotlessCheck -PrunSpotless` to check if it is formatted
 
-`./gradlew spotlessApply` to apply code style.
+`./gradlew spotlessApply -PrunSpotless` to apply code style.

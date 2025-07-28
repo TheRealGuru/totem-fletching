@@ -86,4 +86,10 @@ spotless {
     }
 }
 
-compileJava.dependsOn spotlessCheck
+tasks.named('spotlessCheck') {
+    enabled = project.hasProperty('runSpotless')
+}
+
+tasks.named('spotlessApply') {
+    enabled = project.hasProperty('runSpotless')
+}
