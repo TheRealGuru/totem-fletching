@@ -6,7 +6,6 @@ import com.github.therealguru.totemfletching.service.TotemService;
 import java.awt.*;
 import java.util.Map;
 import net.runelite.api.Client;
-import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -44,7 +43,7 @@ public class CarvingActionOverlay extends Overlay {
             return null;
         }
 
-        if(!isCarvingWidget()) return null;
+        if (!isCarvingWidget()) return null;
 
         Map<Integer, Boolean> carved = totemService.getAnimalsProgress(totem);
         for (Map.Entry<Integer, Boolean> state : carved.entrySet()) {
@@ -69,6 +68,8 @@ public class CarvingActionOverlay extends Overlay {
 
     private boolean isCarvingWidget() {
         Widget childWidget = client.getWidget(TOTEM_CARVING_WIDGET, TOTEM_CARVING_TEXT_WIDGET);
-        return childWidget != null && childWidget.getText() != null && childWidget.getText().equalsIgnoreCase(ACTION_TEXT);
+        return childWidget != null
+                && childWidget.getText() != null
+                && childWidget.getText().equalsIgnoreCase(ACTION_TEXT);
     }
 }

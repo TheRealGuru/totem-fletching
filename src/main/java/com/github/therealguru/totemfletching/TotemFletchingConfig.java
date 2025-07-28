@@ -79,7 +79,7 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 0)
     default Color overlayTextColor() {
-        return Color.green;
+        return Color.decode("#ddc2ff");
     }
 
     @ConfigItem(
@@ -89,7 +89,7 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 1)
     default Color totemCompleteColor() {
-        return Color.green;
+        return Color.decode("#e3ffd7");
     }
 
     @ConfigItem(
@@ -99,7 +99,7 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 2)
     default Color totemIncompleteColor() {
-        return Color.red;
+        return Color.decode("#e5a3a3");
     }
 
     @ConfigItem(
@@ -109,6 +109,6 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 3)
     default Color entTrailColor() {
-        return Color.red;
+        return Color.decode("#e4fff6");
     }
 }
