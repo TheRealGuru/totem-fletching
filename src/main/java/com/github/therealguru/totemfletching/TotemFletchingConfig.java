@@ -18,8 +18,8 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "renderChatboxOptions",
-            name = "Highlight Chatbox Options",
-            description = "Highlights which animals to select in the UI",
+            name = "Highlight Chatbox Carving Options",
+            description = "Highlights which animals to select in the Totem Carving UI",
             section = sectionOverlays,
             position = 0
     )
