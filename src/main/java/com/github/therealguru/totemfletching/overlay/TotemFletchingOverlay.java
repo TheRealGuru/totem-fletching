@@ -46,18 +46,19 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     void renderTotem(Graphics2D graphics2D, Totem totem) {
-        if (!config.renderTextOverlays()) return;
         renderTotemHighlight(graphics2D, totem);
         renderPoints(graphics2D, totem);
 
-        Optional<String> totemText = getTotemText(totem);
-        if (totemText.isPresent()) {
-            String text = totemText.get();
-            Point canvasPoint =
-                    totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, 16);
-            if (canvasPoint != null) {
-                OverlayUtil.renderTextLocation(
-                        graphics2D, canvasPoint, text, config.overlayTextColor());
+        if (config.renderTextOverlays()) {
+            Optional<String> totemText = getTotemText(totem);
+            if (totemText.isPresent()) {
+                String text = totemText.get();
+                Point canvasPoint =
+                        totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, 16);
+                if (canvasPoint != null) {
+                    OverlayUtil.renderTextLocation(
+                            graphics2D, canvasPoint, text, config.overlayTextColor());
+                }
             }
         }
     }
