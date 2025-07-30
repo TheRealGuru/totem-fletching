@@ -20,6 +20,7 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Slf4j
 public class TotemFletchingOverlay extends Overlay {
+
     private final TotemService totemService;
     private final Client client;
     private final TotemFletchingConfig config;
@@ -48,24 +49,31 @@ public class TotemFletchingOverlay extends Overlay {
 
     void renderTotem(Graphics2D graphics2D, Totem totem) {
         renderTotemHighlight(graphics2D, totem);
-        renderPoints(graphics2D, totem);
+        renderPointsOverlay(graphics2D, totem);
 
-        if (config.renderTextOverlays()) {
+        if (config.renderTotemText()) {
             Optional<String> totemText = getTotemText(totem);
             if (totemText.isPresent()) {
                 String text = totemText.get();
-                Point canvasPoint =
-                        totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, 16);
+                Font font = new Font(config.overlayFont().toString(), config.useBoldFont() ? Font.BOLD : Font.PLAIN, config.totemFontSize());
+                graphics2D.setFont(font);
+                Point canvasPoint;
+                if (totem.hasTotemStarted()) {
+                    canvasPoint = totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, config.builtHeight());
+                }
+                else {
+                    canvasPoint = totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, config.unbuiltHeight());
+                }
                 if (canvasPoint != null) {
                     OverlayUtil.renderTextLocation(
-                            graphics2D, canvasPoint, text, config.overlayTextColor());
+                            graphics2D, canvasPoint, text, config.totemTextColor());
                 }
             }
         }
     }
 
     private void renderTotemHighlight(Graphics2D graphics2D, Totem totem) {
-        if (!config.renderTotemOverlays()) return;
+        if (!config.renderTotemHighlight()) return;
 
         if (totem.hasTotemStarted()) {
             Shape shape = totem.getTotemGameObject().getClickbox();
@@ -81,7 +89,7 @@ public class TotemFletchingOverlay extends Overlay {
     Optional<String> getTotemText(Totem totem) {
         if (!totem.isCarved()) {
             return Optional.of(getAnimalText(totem));
-        } else if (!totem.isDecorated()) {
+        } else if (!totem.isDecorated() || config.keepDecoratedText()) {
             return Optional.of(totem.getDecoration() + " / 4");
         } else {
             return Optional.empty();
@@ -105,19 +113,34 @@ public class TotemFletchingOverlay extends Overlay {
                 : config.totemIncompleteColor();
     }
 
-    void renderPoints(Graphics2D graphics2D, Totem totem) {
-        if (!config.renderPoints()) return;
+    void renderPointsOverlay(Graphics2D graphics2D, Totem totem) {
+        if (!config.renderPoints() || totem.getPoints() == 0) return;
 
-        Client client = this.client;
-        GameObject gameObject = totem.getPointsGameObject();
+        renderPointsText(graphics2D, totem);
+        renderPointsTile(graphics2D, totem);
+    }
+
+    void renderPointsText(Graphics2D graphics2D, Totem totem) {
+        final GameObject gameObject = totem.getPointsGameObject();
         final LocalPoint localPoint =
                 LocalPoint.fromWorld(client.getTopLevelWorldView(), gameObject.getWorldLocation());
         if (localPoint == null) return;
 
-        String text = Integer.toString(totem.getPoints());
+        String text = getPointsText(totem);
         Point canvasPoint = gameObject.getCanvasTextLocation(graphics2D, text, 16);
         if (canvasPoint == null) return;
 
         OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.overlayTextColor());
+    }
+
+    void renderPointsTile(Graphics2D graphics2D, Totem totem) {
+        if (!totem.isPointCapped()) return;
+
+        OverlayUtil.renderTileOverlay(
+                graphics2D, totem.getTotemGameObject(), null, config.pointsCappedColor());
+    }
+
+    private String getPointsText(Totem totem) {
+        return totem.isPointCapped() ? "MAXIMUM" : Integer.toString(totem.getPoints());
     }
 }
