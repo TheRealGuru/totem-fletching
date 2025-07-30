@@ -57,7 +57,7 @@ public class TotemFletchingOverlay extends Overlay {
                 Font font = new Font(config.overlayFont().toString(), config.useBoldFont() ? Font.BOLD : Font.PLAIN, config.totemFontSize());
                 graphics2D.setFont(font);
                 String text = totemText.get();
-                Point canvasPoint = getCanvasPoint(graphics2D, totem, text);
+                Point canvasPoint = getTotemCanvasPoint(graphics2D, totem, text);
                 if (canvasPoint != null) {
                     OverlayUtil.renderTextLocation(
                             graphics2D, canvasPoint, text, config.totemTextColor());
@@ -140,7 +140,7 @@ public class TotemFletchingOverlay extends Overlay {
         return totem.isPointCapped() ? "MAXIMUM" : Integer.toString(totem.getPoints());
     }
 
-    private Point getCanvasPoint(Graphics2D graphics2D, Totem totem, String text) {
+    private Point getTotemCanvasPoint(Graphics2D graphics2D, Totem totem, String text) {
         if (totem.hasTotemStarted()) {
             return totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, config.builtHeight());
         } else {
