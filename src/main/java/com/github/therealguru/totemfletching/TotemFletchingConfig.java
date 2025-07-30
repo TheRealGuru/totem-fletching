@@ -7,6 +7,7 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
 import net.runelite.client.config.Range;
+import net.runelite.client.config.Units;
 
 @ConfigGroup("totem-fletching")
 public interface TotemFletchingConfig extends Config {
@@ -170,9 +171,10 @@ public interface TotemFletchingConfig extends Config {
     @ConfigItem(
             keyName = "unbuiltHeight",
             name = "Unbuilt Height",
-            description = "Choose the height of an unbuilt totem text",
+            description = "Choose how high the unbuilt totem text will be from the ground",
             section = sectionText,
             position = 0)
+    @Units(Units.PIXELS)
     @Range(max = 500)
     default int unbuiltHeight() {
         return 16;
@@ -181,20 +183,32 @@ public interface TotemFletchingConfig extends Config {
     @ConfigItem(
             keyName = "builtHeight",
             name = "Built Height",
-            description = "Choose the height of a built totem text",
+            description = "Choose how high the built totem text will be from the ground",
             section = sectionText,
             position = 1)
+    @Units(Units.PIXELS)
     @Range(max = 500)
     default int builtHeight() {
         return 16;
     }
 
     @ConfigItem(
-            keyName = "pointsHeight",
-            name = "Points Height",
-            description = "Choose the height of the points text",
+            keyName = "showZeroPoints",
+            name = "Show Zero Points",
+            description = "Show the points text even if the points are zero",
             section = sectionText,
             position = 2)
+    default boolean showZeroPoints() {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "pointsHeight",
+            name = "Points Height",
+            description = "Choose how high the points text will be from the ground",
+            section = sectionText,
+            position = 3)
+    @Units(Units.PIXELS)
     @Range(max = 500)
     default int pointsHeight() {
         return 16;
@@ -205,7 +219,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Overlay Font",
             description = "Choose the font type to be used for the overlay text",
             section = sectionText,
-            position = 3)
+            position = 4)
     default TotemFonts overlayFont() {
         return TotemFonts.RUNESCAPE;
     }
@@ -215,8 +229,30 @@ public interface TotemFletchingConfig extends Config {
             name = "Bold Style",
             description = "Use Bold font style instead",
             section = sectionText,
-            position = 4)
-    default Color carvingInterfaceColor() {
-        return GREEN;
+            position = 5)
+    default boolean useBoldFont() {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "totemFontSize",
+            name = "Totem Font Size",
+            description = "Font size of the text on the totem",
+            section = sectionText,
+            position = 6)
+    @Range(min = 8, max = 40)
+    default int totemFontSize() {
+        return 16;
+    }
+
+    @ConfigItem(
+            keyName = "pointsFontSize",
+            name = "Points Font Size",
+            description = "Font size of the points text",
+            section = sectionText,
+            position = 7)
+    @Range(min = 8, max = 40)
+    default int pointsFontSize() {
+        return 16;
     }
 }

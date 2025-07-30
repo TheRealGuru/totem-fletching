@@ -54,16 +54,10 @@ public class TotemFletchingOverlay extends Overlay {
         if (config.renderTotemText()) {
             Optional<String> totemText = getTotemText(totem);
             if (totemText.isPresent()) {
-                String text = totemText.get();
                 Font font = new Font(config.overlayFont().toString(), config.useBoldFont() ? Font.BOLD : Font.PLAIN, config.totemFontSize());
                 graphics2D.setFont(font);
-                Point canvasPoint;
-                if (totem.hasTotemStarted()) {
-                    canvasPoint = totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, config.builtHeight());
-                }
-                else {
-                    canvasPoint = totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, config.unbuiltHeight());
-                }
+                String text = totemText.get();
+                Point canvasPoint = getCanvasPoint(graphics2D, totem, text);
                 if (canvasPoint != null) {
                     OverlayUtil.renderTextLocation(
                             graphics2D, canvasPoint, text, config.totemTextColor());
@@ -114,7 +108,7 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     void renderPointsOverlay(Graphics2D graphics2D, Totem totem) {
-        if (!config.renderPoints() || totem.getPoints() == 0) return;
+        if (!config.renderPoints() || (totem.getPoints() == 0 && !config.showZeroPoints())) return;
 
         renderPointsText(graphics2D, totem);
         renderPointsTile(graphics2D, totem);
@@ -126,8 +120,10 @@ public class TotemFletchingOverlay extends Overlay {
                 LocalPoint.fromWorld(client.getTopLevelWorldView(), gameObject.getWorldLocation());
         if (localPoint == null) return;
 
+        Font font = new Font(config.overlayFont().toString(), config.useBoldFont() ? Font.BOLD : Font.PLAIN, config.pointsFontSize());
+        graphics2D.setFont(font);
         String text = getPointsText(totem);
-        Point canvasPoint = gameObject.getCanvasTextLocation(graphics2D, text, 16);
+        Point canvasPoint = gameObject.getCanvasTextLocation(graphics2D, text, config.pointsHeight());
         if (canvasPoint == null) return;
 
         OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.overlayTextColor());
@@ -142,5 +138,13 @@ public class TotemFletchingOverlay extends Overlay {
 
     private String getPointsText(Totem totem) {
         return totem.isPointCapped() ? "MAXIMUM" : Integer.toString(totem.getPoints());
+    }
+
+    private Point getCanvasPoint(Graphics2D graphics2D, Totem totem, String text) {
+        if (totem.hasTotemStarted()) {
+            return totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, config.builtHeight());
+        } else {
+            return totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, config.unbuiltHeight());
+        }
     }
 }
