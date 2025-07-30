@@ -54,21 +54,11 @@ public interface TotemFletchingConfig extends Config {
     }
 
     @ConfigItem(
-            keyName = "keepDecoratedText",
-            name = "Keep Fully Decorated Text",
-            description = "Show the text on a fully decorated totem",
-            section = sectionOverlays,
-            position = 3)
-    default boolean keepDecoratedText() {
-        return false;
-    }
-
-    @ConfigItem(
             keyName = "renderPoints",
             name = "Show Points Text Overlay",
             description = "Draw the text overlay over points",
             section = sectionOverlays,
-            position = 4)
+            position = 3)
     default boolean renderPoints() {
         return true;
     }
@@ -79,7 +69,7 @@ public interface TotemFletchingConfig extends Config {
             description =
                     "Whether to show the ent trails that need to be stepped on for bonus points",
             section = sectionOverlays,
-            position = 5)
+            position = 4)
     default boolean renderEntTrails() {
         return true;
     }
@@ -169,21 +159,31 @@ public interface TotemFletchingConfig extends Config {
     String sectionText = "sectionText";
 
     @ConfigItem(
+            keyName = "keepDecoratedText",
+            name = "Keep Fully Decorated Text",
+            description = "Show the text on a fully decorated totem",
+            section = sectionText,
+            position = 0)
+    default boolean keepDecoratedText() {
+        return false;
+    }
+
+    @ConfigItem(
             keyName = "showZeroPoints",
             name = "Show Zero Points",
             description = "Show the points text even if the points are zero",
             section = sectionText,
-            position = 0)
+            position = 1)
     default boolean showZeroPoints() {
         return true;
     }
 
     @ConfigItem(
             keyName = "unbuiltOffset",
-            name = "Unbuilt Offset",
+            name = "Unbuilt Totem Offset",
             description = "Choose how high the unbuilt totem text will be from the ground",
             section = sectionText,
-            position = 1)
+            position = 2)
     @Units(Units.PIXELS)
     @Range(max = 500)
     default int unbuiltOffset() {
@@ -192,10 +192,10 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "builtOffset",
-            name = "Built Offset",
+            name = "Built Totem Offset",
             description = "Choose how high the built totem text will be from the ground",
             section = sectionText,
-            position = 2)
+            position = 3)
     @Units(Units.PIXELS)
     @Range(max = 500)
     default int builtOffset() {
@@ -207,7 +207,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Points Offset",
             description = "Choose how high the points text will be from the ground",
             section = sectionText,
-            position = 3)
+            position = 4)
     @Units(Units.PIXELS)
     @Range(max = 500)
     default int pointsOffset() {
@@ -219,7 +219,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Overlay Font",
             description = "Choose the font type to be used for the overlay text",
             section = sectionText,
-            position = 4)
+            position = 5)
     default TotemFonts overlayFont() {
         return TotemFonts.RUNESCAPE;
     }
@@ -229,7 +229,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Bold Style",
             description = "Use Bold font style instead",
             section = sectionText,
-            position = 5)
+            position = 6)
     default boolean useBoldFont() {
         return false;
     }
@@ -239,7 +239,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Totem Font Size",
             description = "Font size of the text on the totem",
             section = sectionText,
-            position = 6)
+            position = 7)
     @Range(min = 8, max = 40)
     default int totemFontSize() {
         return 16;
@@ -250,7 +250,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Points Font Size",
             description = "Font size of the points text",
             section = sectionText,
-            position = 7)
+            position = 8)
     @Range(min = 8, max = 40)
     default int pointsFontSize() {
         return 16;
