@@ -8,6 +8,10 @@ import net.runelite.client.config.ConfigSection;
 
 @ConfigGroup("totem-fletching")
 public interface TotemFletchingConfig extends Config {
+
+    Color RED = Color.decode("#E45F5F");
+    Color GREEN = Color.decode("#9CF575");
+
     @ConfigSection(
             name = "Overlay Settings",
             description = "Enable or disable individual overlays",
@@ -89,7 +93,7 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 1)
     default Color totemCompleteColor() {
-        return Color.decode("#9CF575");
+        return GREEN;
     }
 
     @ConfigItem(
@@ -99,7 +103,7 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 2)
     default Color totemIncompleteColor() {
-        return Color.decode("#E45F5F");
+        return RED;
     }
 
     @ConfigItem(
@@ -120,6 +124,17 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 4)
     default Color carvingInterfaceColor() {
-        return Color.decode("#9CF575");
+        return GREEN;
+    }
+
+    @ConfigItem(
+            keyName = "pointsCappedColor",
+            name = "Points at Maximum Color",
+            description =
+                    "Choose the color used to highlight the points tile if the maximum point total has been reached",
+            section = sectionColors,
+            position = 5)
+    default Color pointsCappedColor() {
+        return RED;
     }
 }

@@ -8,6 +8,8 @@ import net.runelite.api.GameObject;
 @Data
 public class Totem {
 
+    private static final int MAXIMUM_POINTS = 15000;
+
     private int totemId;
     private int totemGameObjectId;
     private int pointsGameObjectId;
@@ -66,5 +68,9 @@ public class Totem {
 
     public boolean isRenderable() {
         return totemGameObject != null && pointsGameObject != null;
+    }
+
+    public boolean isPointCapped() {
+        return points >= MAXIMUM_POINTS;
     }
 }
