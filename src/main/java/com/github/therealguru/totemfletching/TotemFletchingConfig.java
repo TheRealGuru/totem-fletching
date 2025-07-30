@@ -169,11 +169,21 @@ public interface TotemFletchingConfig extends Config {
     String sectionText = "sectionText";
 
     @ConfigItem(
+            keyName = "showZeroPoints",
+            name = "Show Zero Points",
+            description = "Show the points text even if the points are zero",
+            section = sectionText,
+            position = 0)
+    default boolean showZeroPoints() {
+        return true;
+    }
+
+    @ConfigItem(
             keyName = "unbuiltHeight",
             name = "Unbuilt Height",
             description = "Choose how high the unbuilt totem text will be from the ground",
             section = sectionText,
-            position = 0)
+            position = 1)
     @Units(Units.PIXELS)
     @Range(max = 500)
     default int unbuiltHeight() {
@@ -185,21 +195,11 @@ public interface TotemFletchingConfig extends Config {
             name = "Built Height",
             description = "Choose how high the built totem text will be from the ground",
             section = sectionText,
-            position = 1)
+            position = 2)
     @Units(Units.PIXELS)
     @Range(max = 500)
     default int builtHeight() {
         return 16;
-    }
-
-    @ConfigItem(
-            keyName = "showZeroPoints",
-            name = "Show Zero Points",
-            description = "Show the points text even if the points are zero",
-            section = sectionText,
-            position = 2)
-    default boolean showZeroPoints() {
-        return true;
     }
 
     @ConfigItem(
