@@ -4,6 +4,7 @@ import com.github.therealguru.totemfletching.TotemFletchingConfig;
 import com.github.therealguru.totemfletching.TotemFletchingPlugin;
 import com.github.therealguru.totemfletching.service.EntTrailService;
 import java.awt.*;
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.client.ui.overlay.Overlay;
@@ -15,6 +16,7 @@ public class EntTrailOverlay extends Overlay {
     private final EntTrailService service;
     private final TotemFletchingConfig config;
 
+    @Inject
     public EntTrailOverlay(
             TotemFletchingPlugin plugin,
             TotemFletchingConfig config,

@@ -1,9 +1,7 @@
 package com.github.therealguru.totemfletching;
 
-import com.github.therealguru.totemfletching.overlay.CarvingActionOverlay;
-import com.github.therealguru.totemfletching.overlay.EntTrailOverlay;
-import com.github.therealguru.totemfletching.overlay.TotemFletchingOverlay;
 import com.github.therealguru.totemfletching.service.EntTrailService;
+import com.github.therealguru.totemfletching.service.OverlayService;
 import com.github.therealguru.totemfletching.service.TotemService;
 import com.google.inject.Provides;
 import javax.inject.Inject;
@@ -15,39 +13,25 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.ui.overlay.OverlayManager;
 
 @Slf4j
 @PluginDescriptor(name = "Totem Fletching")
 public class TotemFletchingPlugin extends Plugin {
 
     @Inject private Client client;
-    @Inject private TotemFletchingConfig config;
-    @Inject private OverlayManager overlayManager;
 
-    private TotemService totemService;
-    private EntTrailService entTrailService;
-    private TotemFletchingOverlay gameOverlay;
-    private CarvingActionOverlay carvingOverlay;
-    private EntTrailOverlay entTrailOverlay;
+    @Inject private OverlayService overlayService;
+    @Inject private TotemService totemService;
+    @Inject private EntTrailService entTrailService;
 
     @Override
     protected void startUp() throws Exception {
-        totemService = new TotemService();
-        entTrailService = new EntTrailService();
-        gameOverlay = new TotemFletchingOverlay(this, config, totemService, client);
-        carvingOverlay = new CarvingActionOverlay(totemService, config, client);
-        entTrailOverlay = new EntTrailOverlay(this, config, entTrailService, client);
-        overlayManager.add(gameOverlay);
-        overlayManager.add(carvingOverlay);
-        overlayManager.add(entTrailOverlay);
+        overlayService.registerOverlays();
     }
 
     @Override
     protected void shutDown() throws Exception {
-        overlayManager.remove(gameOverlay);
-        overlayManager.remove(carvingOverlay);
-        overlayManager.remove(entTrailOverlay);
+        overlayService.unregisterOverlays();
     }
 
     @Provides
