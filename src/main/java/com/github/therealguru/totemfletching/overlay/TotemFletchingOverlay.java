@@ -126,7 +126,7 @@ public class TotemFletchingOverlay extends Overlay {
         Point canvasPoint = gameObject.getCanvasTextLocation(graphics2D, text, config.pointsHeight());
         if (canvasPoint == null) return;
 
-        OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.overlayTextColor());
+        OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.pointsTextColor());
     }
 
     void renderPointsTile(Graphics2D graphics2D, Totem totem) {
