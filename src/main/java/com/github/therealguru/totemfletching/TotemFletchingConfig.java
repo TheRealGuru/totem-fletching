@@ -69,7 +69,7 @@ public interface TotemFletchingConfig extends Config {
             description = "Draw the text overlay over points",
             section = sectionOverlays,
             position = 4)
-    default boolean renderPointsText() {
+    default boolean renderPoints() {
         return true;
     }
 
