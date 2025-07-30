@@ -179,38 +179,38 @@ public interface TotemFletchingConfig extends Config {
     }
 
     @ConfigItem(
-            keyName = "unbuiltHeight",
-            name = "Unbuilt Height",
+            keyName = "unbuiltOffset",
+            name = "Unbuilt Offset",
             description = "Choose how high the unbuilt totem text will be from the ground",
             section = sectionText,
             position = 1)
     @Units(Units.PIXELS)
     @Range(max = 500)
-    default int unbuiltHeight() {
+    default int unbuiltOffset() {
         return 16;
     }
 
     @ConfigItem(
-            keyName = "builtHeight",
-            name = "Built Height",
+            keyName = "builtOffset",
+            name = "Built Offset",
             description = "Choose how high the built totem text will be from the ground",
             section = sectionText,
             position = 2)
     @Units(Units.PIXELS)
     @Range(max = 500)
-    default int builtHeight() {
+    default int builtOffset() {
         return 16;
     }
 
     @ConfigItem(
-            keyName = "pointsHeight",
-            name = "Points Height",
+            keyName = "pointsOffset",
+            name = "Points Offset",
             description = "Choose how high the points text will be from the ground",
             section = sectionText,
             position = 3)
     @Units(Units.PIXELS)
     @Range(max = 500)
-    default int pointsHeight() {
+    default int pointsOffset() {
         return 16;
     }
 
