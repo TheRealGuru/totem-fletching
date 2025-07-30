@@ -1,18 +1,18 @@
 package com.github.therealguru.totemfletching.overlay;
 
 import com.github.therealguru.totemfletching.TotemFletchingConfig;
+import com.github.therealguru.totemfletching.TotemFletchingPlugin;
 import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.service.TotemService;
 import java.awt.*;
 import java.util.Map;
 import java.util.Optional;
-import javax.annotation.Nullable;
+import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -24,8 +24,9 @@ public class TotemFletchingOverlay extends Overlay {
     private final Client client;
     private final TotemFletchingConfig config;
 
+    @Inject
     public TotemFletchingOverlay(
-            @Nullable Plugin plugin,
+            TotemFletchingPlugin plugin,
             TotemFletchingConfig config,
             TotemService totemService,
             Client client) {

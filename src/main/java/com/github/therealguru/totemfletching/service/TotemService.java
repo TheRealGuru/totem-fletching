@@ -7,13 +7,17 @@ import com.github.therealguru.totemfletching.model.TotemVarbit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Singleton;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.GameObject;
 import net.runelite.api.Player;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.gameval.ObjectID;
 import net.runelite.api.gameval.VarbitID;
 
+@Slf4j
+@Singleton
 public class TotemService {
 
     private static final List<Totem> TOTEMS =
@@ -76,6 +80,8 @@ public class TotemService {
     }
 
     @Getter private Totem closestTotem = null;
+
+    public TotemService() {}
 
     public void onVarbitChanged(final VarbitChanged varbitChanged) {
         Totem totem =

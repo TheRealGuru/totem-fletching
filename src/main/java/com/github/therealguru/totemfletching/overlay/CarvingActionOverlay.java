@@ -5,6 +5,7 @@ import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.service.TotemService;
 import java.awt.*;
 import java.util.Map;
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.ui.overlay.Overlay;
@@ -21,6 +22,7 @@ public class CarvingActionOverlay extends Overlay {
     private final TotemService totemService;
     private final TotemFletchingConfig config;
 
+    @Inject
     public CarvingActionOverlay(TotemService service, TotemFletchingConfig config, Client client) {
         super();
         this.client = client;
