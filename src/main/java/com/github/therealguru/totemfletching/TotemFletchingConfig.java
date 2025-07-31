@@ -44,8 +44,7 @@ public interface TotemFletchingConfig extends Config {
     @ConfigItem(
             keyName = "renderTotemText",
             name = "Show Totem Text Overlay",
-            description =
-                    "Draw the text overlay over totems for animals and decorations",
+            description = "Draw the text overlay over totems for animals and decorations",
             section = sectionOverlays,
             position = 2)
     default boolean renderTotemText() {
@@ -153,7 +152,7 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigSection(
             name = "Additional Settings",
-            description = "Customize additional settings",
+            description = "Customize additional accessibility settings",
             closedByDefault = true,
             position = 2)
     String sectionAdditional = "sectionAdditional";

@@ -119,7 +119,8 @@ public class TotemFletchingOverlay extends Overlay {
         if (localPoint == null) return;
 
         String text = getPointsText(totem);
-        Point canvasPoint = gameObject.getCanvasTextLocation(graphics2D, text, config.pointsOffset());
+        Point canvasPoint =
+                gameObject.getCanvasTextLocation(graphics2D, text, config.pointsOffset());
         if (canvasPoint == null) return;
 
         OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.pointsTextColor());
@@ -138,9 +139,11 @@ public class TotemFletchingOverlay extends Overlay {
 
     private Point getTotemCanvasPoint(Graphics2D graphics2D, Totem totem, String text) {
         if (totem.hasTotemStarted()) {
-            return totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, config.builtOffset());
+            return totem.getTotemGameObject()
+                    .getCanvasTextLocation(graphics2D, text, config.builtOffset());
         } else {
-            return totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, config.unbuiltOffset());
+            return totem.getTotemGameObject()
+                    .getCanvasTextLocation(graphics2D, text, config.unbuiltOffset());
         }
     }
 }
