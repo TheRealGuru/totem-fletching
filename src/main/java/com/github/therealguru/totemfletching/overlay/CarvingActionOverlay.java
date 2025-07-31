@@ -16,6 +16,8 @@ public class CarvingActionOverlay extends Overlay {
 
     private static final int TOTEM_CARVING_WIDGET = 270;
     private static final int TOTEM_CARVING_TEXT_WIDGET = 5;
+    private static final int FIRST_ANIMAL_WIDGET = 13;
+    private static final int ANIMAL_COUNT = 5;
     private static final String ACTION_TEXT = "What animal would you like to carve?";
 
     private final Client client;
@@ -35,7 +37,8 @@ public class CarvingActionOverlay extends Overlay {
 
     @Override
     public Dimension render(Graphics2D graphics2D) {
-        if (!config.renderChatboxOptions()) return null;
+        if (!config.highlightCorrectCarvingChoice() && !config.maskIncorrectCarvingChoice())
+            return null;
 
         Totem totem = totemService.getClosestTotem();
         if (totem == null) return null;
@@ -48,23 +51,27 @@ public class CarvingActionOverlay extends Overlay {
         if (!isCarvingWidget()) return null;
 
         Map<Integer, Boolean> carved = totemService.getAnimalsProgress(totem);
-        for (Map.Entry<Integer, Boolean> state : carved.entrySet()) {
-            if (state.getValue()) continue;
-
-            Widget childWidget = client.getWidget(TOTEM_CARVING_WIDGET, 13 + state.getKey());
+        for (int i = 0; i < ANIMAL_COUNT; i++) {
+            Widget childWidget = client.getWidget(TOTEM_CARVING_WIDGET, i + FIRST_ANIMAL_WIDGET);
             if (childWidget != null && !childWidget.isHidden()) {
-                renderOverlay(graphics2D, childWidget);
+                renderOverlay(graphics2D, childWidget, carved.getOrDefault(i, false));
             }
         }
+
         return null;
     }
 
-    private void renderOverlay(Graphics2D graphics, Widget childWidget) {
+    private void renderOverlay(Graphics2D graphics, Widget childWidget, boolean correctChoice) {
         Rectangle bounds = childWidget.getBounds();
         if (bounds != null) {
-            graphics.setColor(config.carvingInterfaceColor());
-            graphics.setStroke(new BasicStroke(2));
-            graphics.draw(bounds);
+            if (correctChoice && config.highlightCorrectCarvingChoice()) {
+                graphics.setColor(config.carvingInterfaceColor());
+                graphics.setStroke(new BasicStroke(2));
+                graphics.draw(bounds);
+            } else if (!correctChoice && config.maskIncorrectCarvingChoice()) {
+                graphics.setColor(config.carvingMaskColor());
+                graphics.fill(bounds);
+            }
         }
     }
 
