@@ -108,8 +108,8 @@ public class TotemFletchingOverlay extends Overlay {
     void renderPointsOverlay(Graphics2D graphics2D, Totem totem) {
         if (!config.renderPoints() || (totem.getPoints() == 0 && !config.showZeroPoints())) return;
 
-        renderPointsText(graphics2D, totem);
         renderPointsTile(graphics2D, totem);
+        renderPointsText(graphics2D, totem);
     }
 
     void renderPointsText(Graphics2D graphics2D, Totem totem) {
@@ -130,7 +130,7 @@ public class TotemFletchingOverlay extends Overlay {
         if (!totem.isPointCapped()) return;
 
         OverlayUtil.renderTileOverlay(
-                graphics2D, totem.getTotemGameObject(), null, config.pointsCappedColor());
+                graphics2D, totem.getPointsGameObject(), null, config.pointsCappedColor());
     }
 
     private String getPointsText(Totem totem) {
