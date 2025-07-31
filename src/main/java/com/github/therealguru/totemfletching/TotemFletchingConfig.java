@@ -1,6 +1,5 @@
 package com.github.therealguru.totemfletching;
 
-import com.github.therealguru.totemfletching.overlay.TotemFonts;
 import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
@@ -153,16 +152,17 @@ public interface TotemFletchingConfig extends Config {
     }
 
     @ConfigSection(
-            name = "Text Settings",
-            description = "Customize the overlay text",
+            name = "Additional Settings",
+            description = "Customize additional settings",
+            closedByDefault = true,
             position = 2)
-    String sectionText = "sectionText";
+    String sectionAdditional = "sectionAdditional";
 
     @ConfigItem(
             keyName = "keepDecoratedText",
             name = "Keep Fully Decorated Text",
             description = "Show the text on a fully decorated totem",
-            section = sectionText,
+            section = sectionAdditional,
             position = 0)
     default boolean keepDecoratedText() {
         return false;
@@ -172,7 +172,7 @@ public interface TotemFletchingConfig extends Config {
             keyName = "showZeroPoints",
             name = "Show Zero Points",
             description = "Show the points text even if the points are zero",
-            section = sectionText,
+            section = sectionAdditional,
             position = 1)
     default boolean showZeroPoints() {
         return true;
@@ -182,10 +182,10 @@ public interface TotemFletchingConfig extends Config {
             keyName = "unbuiltOffset",
             name = "Unbuilt Totem Offset",
             description = "Choose how high the unbuilt totem text will be from the ground",
-            section = sectionText,
+            section = sectionAdditional,
             position = 2)
     @Units(Units.PIXELS)
-    @Range(max = 500)
+    @Range(max = 800)
     default int unbuiltOffset() {
         return 16;
     }
@@ -194,10 +194,10 @@ public interface TotemFletchingConfig extends Config {
             keyName = "builtOffset",
             name = "Built Totem Offset",
             description = "Choose how high the built totem text will be from the ground",
-            section = sectionText,
+            section = sectionAdditional,
             position = 3)
     @Units(Units.PIXELS)
-    @Range(max = 500)
+    @Range(max = 800)
     default int builtOffset() {
         return 16;
     }
@@ -206,53 +206,11 @@ public interface TotemFletchingConfig extends Config {
             keyName = "pointsOffset",
             name = "Points Offset",
             description = "Choose how high the points text will be from the ground",
-            section = sectionText,
+            section = sectionAdditional,
             position = 4)
     @Units(Units.PIXELS)
-    @Range(max = 500)
+    @Range(max = 800)
     default int pointsOffset() {
-        return 16;
-    }
-
-    @ConfigItem(
-            keyName = "overlayFont",
-            name = "Overlay Font",
-            description = "Choose the font type to be used for the overlay text",
-            section = sectionText,
-            position = 5)
-    default TotemFonts overlayFont() {
-        return TotemFonts.RUNESCAPE;
-    }
-
-    @ConfigItem(
-            keyName = "useBoldFont",
-            name = "Bold Style",
-            description = "Use Bold font style instead",
-            section = sectionText,
-            position = 6)
-    default boolean useBoldFont() {
-        return false;
-    }
-
-    @ConfigItem(
-            keyName = "totemFontSize",
-            name = "Totem Font Size",
-            description = "Font size of the text on the totem",
-            section = sectionText,
-            position = 7)
-    @Range(min = 8, max = 40)
-    default int totemFontSize() {
-        return 16;
-    }
-
-    @ConfigItem(
-            keyName = "pointsFontSize",
-            name = "Points Font Size",
-            description = "Font size of the points text",
-            section = sectionText,
-            position = 8)
-    @Range(min = 8, max = 40)
-    default int pointsFontSize() {
         return 16;
     }
 }

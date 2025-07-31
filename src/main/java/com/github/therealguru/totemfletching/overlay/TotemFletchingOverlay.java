@@ -54,8 +54,6 @@ public class TotemFletchingOverlay extends Overlay {
         if (config.renderTotemText()) {
             Optional<String> totemText = getTotemText(totem);
             if (totemText.isPresent()) {
-                Font font = new Font(config.overlayFont().toString(), config.useBoldFont() ? Font.BOLD : Font.PLAIN, config.totemFontSize());
-                graphics2D.setFont(font);
                 String text = totemText.get();
                 Point canvasPoint = getTotemCanvasPoint(graphics2D, totem, text);
                 if (canvasPoint != null) {
@@ -120,8 +118,6 @@ public class TotemFletchingOverlay extends Overlay {
                 LocalPoint.fromWorld(client.getTopLevelWorldView(), gameObject.getWorldLocation());
         if (localPoint == null) return;
 
-        Font font = new Font(config.overlayFont().toString(), config.useBoldFont() ? Font.BOLD : Font.PLAIN, config.pointsFontSize());
-        graphics2D.setFont(font);
         String text = getPointsText(totem);
         Point canvasPoint = gameObject.getCanvasTextLocation(graphics2D, text, config.pointsOffset());
         if (canvasPoint == null) return;
