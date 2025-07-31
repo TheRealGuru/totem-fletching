@@ -51,22 +51,21 @@ public class TotemFletchingOverlay extends Overlay {
         renderTotemHighlight(graphics2D, totem);
         renderPointsOverlay(graphics2D, totem);
 
-        if (config.renderTextOverlays()) {
+        if (config.renderTotemText()) {
             Optional<String> totemText = getTotemText(totem);
             if (totemText.isPresent()) {
                 String text = totemText.get();
-                Point canvasPoint =
-                        totem.getTotemGameObject().getCanvasTextLocation(graphics2D, text, 16);
+                Point canvasPoint = getTotemCanvasPoint(graphics2D, totem, text);
                 if (canvasPoint != null) {
                     OverlayUtil.renderTextLocation(
-                            graphics2D, canvasPoint, text, config.overlayTextColor());
+                            graphics2D, canvasPoint, text, config.totemTextColor());
                 }
             }
         }
     }
 
     private void renderTotemHighlight(Graphics2D graphics2D, Totem totem) {
-        if (!config.renderTotemOverlays()) return;
+        if (!config.renderTotemHighlight()) return;
 
         if (totem.hasTotemStarted()) {
             Shape shape = totem.getTotemGameObject().getClickbox();
@@ -82,7 +81,7 @@ public class TotemFletchingOverlay extends Overlay {
     Optional<String> getTotemText(Totem totem) {
         if (!totem.isCarved()) {
             return Optional.of(getAnimalText(totem));
-        } else if (!totem.isDecorated()) {
+        } else if (!totem.isDecorated() || config.keepDecoratedText()) {
             return Optional.of(totem.getDecoration() + " / 4");
         } else {
             return Optional.empty();
@@ -107,7 +106,7 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     void renderPointsOverlay(Graphics2D graphics2D, Totem totem) {
-        if (!config.renderPoints() || totem.getPoints() == 0) return;
+        if (!config.renderPoints() || (totem.getPoints() == 0 && !config.showZeroPoints())) return;
 
         renderPointsText(graphics2D, totem);
         renderPointsTile(graphics2D, totem);
@@ -120,10 +119,11 @@ public class TotemFletchingOverlay extends Overlay {
         if (localPoint == null) return;
 
         String text = getPointsText(totem);
-        Point canvasPoint = gameObject.getCanvasTextLocation(graphics2D, text, 16);
+        Point canvasPoint =
+                gameObject.getCanvasTextLocation(graphics2D, text, config.pointsOffset());
         if (canvasPoint == null) return;
 
-        OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.overlayTextColor());
+        OverlayUtil.renderTextLocation(graphics2D, canvasPoint, text, config.pointsTextColor());
     }
 
     void renderPointsTile(Graphics2D graphics2D, Totem totem) {
@@ -135,5 +135,15 @@ public class TotemFletchingOverlay extends Overlay {
 
     private String getPointsText(Totem totem) {
         return totem.isPointCapped() ? "MAXIMUM" : Integer.toString(totem.getPoints());
+    }
+
+    private Point getTotemCanvasPoint(Graphics2D graphics2D, Totem totem, String text) {
+        if (totem.hasTotemStarted()) {
+            return totem.getTotemGameObject()
+                    .getCanvasTextLocation(graphics2D, text, config.builtOffset());
+        } else {
+            return totem.getTotemGameObject()
+                    .getCanvasTextLocation(graphics2D, text, config.unbuiltOffset());
+        }
     }
 }
