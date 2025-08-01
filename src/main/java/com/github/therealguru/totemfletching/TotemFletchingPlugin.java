@@ -60,7 +60,7 @@ public class TotemFletchingPlugin extends Plugin {
 
     @Subscribe
     public void onNpcSpawned(final NpcSpawned npcSpawned) {
-        entTrailService.removeEntNpc(npcSpawned.getNpc());
+        entTrailService.addEntNpc(npcSpawned.getNpc());
     }
 
     @Subscribe
