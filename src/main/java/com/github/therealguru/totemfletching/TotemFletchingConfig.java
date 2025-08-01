@@ -186,7 +186,7 @@ public interface TotemFletchingConfig extends Config {
     @Units(Units.PIXELS)
     @Range(max = 800)
     default int unbuiltOffset() {
-        return 16;
+        return 160;
     }
 
     @ConfigItem(
@@ -198,7 +198,7 @@ public interface TotemFletchingConfig extends Config {
     @Units(Units.PIXELS)
     @Range(max = 800)
     default int builtOffset() {
-        return 16;
+        return 160;
     }
 
     @ConfigItem(
