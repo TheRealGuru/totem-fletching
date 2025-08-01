@@ -1,12 +1,8 @@
 package com.github.therealguru.totemfletching;
 
 import java.awt.Color;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.ConfigSection;
-import net.runelite.client.config.Range;
-import net.runelite.client.config.Units;
+
+import net.runelite.client.config.*;
 
 @ConfigGroup("totem-fletching")
 public interface TotemFletchingConfig extends Config {
@@ -170,6 +166,7 @@ public interface TotemFletchingConfig extends Config {
         return Color.decode("#9CF575");
     }
 
+    @Alpha
     @ConfigItem(
             keyName = "carvingInterfaceMask",
             name = "Carving Mask Color",
@@ -177,7 +174,7 @@ public interface TotemFletchingConfig extends Config {
             section = sectionColors,
             position = 7)
     default Color carvingMaskColor() {
-        return new Color(64, 64, 64, 153);
+        return new Color(64, 64, 64, 204);
     }
 
     @ConfigSection(

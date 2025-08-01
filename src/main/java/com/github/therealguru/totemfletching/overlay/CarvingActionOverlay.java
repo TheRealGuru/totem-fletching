@@ -50,11 +50,13 @@ public class CarvingActionOverlay extends Overlay {
 
         if (!isCarvingWidget()) return null;
 
-        Map<Integer, Boolean> carved = totemService.getAnimalsProgress(totem);
-        for (int i = 0; i < ANIMAL_COUNT; i++) {
+        Map<Integer, Boolean> carvedState = totemService.getAnimalsProgress(totem);
+        for (int i = 1; i < ANIMAL_COUNT + 1; i++) {
             Widget childWidget = client.getWidget(TOTEM_CARVING_WIDGET, i + FIRST_ANIMAL_WIDGET);
             if (childWidget != null && !childWidget.isHidden()) {
-                renderOverlay(graphics2D, childWidget, carved.getOrDefault(i, false));
+                //If the choice doesn't exist then we default to true (this just means the animal is an incorrect choice).
+                boolean isCarvedOrIncorrectChoice = carvedState.getOrDefault(i, true);
+                renderOverlay(graphics2D, childWidget, !isCarvedOrIncorrectChoice);
             }
         }
 
