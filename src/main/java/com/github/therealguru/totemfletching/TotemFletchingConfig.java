@@ -1,7 +1,6 @@
 package com.github.therealguru.totemfletching;
 
 import java.awt.Color;
-
 import net.runelite.client.config.*;
 
 @ConfigGroup("totem-fletching")
