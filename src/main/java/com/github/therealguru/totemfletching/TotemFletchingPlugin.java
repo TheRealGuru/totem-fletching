@@ -59,15 +59,27 @@ public class TotemFletchingPlugin extends Plugin {
     }
 
     @Subscribe
+    public void onNpcSpawned(final NpcSpawned npcSpawned) {
+        entTrailService.removeEntNpc(npcSpawned.getNpc());
+    }
+
+    @Subscribe
+    public void onNpcDespawned(final NpcDespawned npcDespawned) {
+        entTrailService.removeEntNpc(npcDespawned.getNpc());
+    }
+
+    @Subscribe
     public void onGameStateChanged(GameStateChanged event) {
         if (event.getGameState().equals(GameState.LOADING)) {
             totemService.clearGameObjects();
             entTrailService.clearEntTrails();
+            entTrailService.clearEntNpcs();
         }
     }
 
     @Subscribe
     public void onGameTick(final GameTick gameTick) {
         totemService.updateClosestTotem(client.getLocalPlayer());
+        entTrailService.updateEntNpcLocations();
     }
 }
