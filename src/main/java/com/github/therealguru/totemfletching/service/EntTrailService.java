@@ -48,8 +48,10 @@ public class EntTrailService {
         if (!isEntTrail(spawned.getGameObject())) return;
 
         entTrails.add(spawned.getGameObject());
-        if(entTrailsSeen.add(spawned.getTile().getWorldLocation())) {
-            log.debug("A new ent trail location has been detected updated list is now {}", entTrailsSeen);
+        if (entTrailsSeen.add(spawned.getTile().getWorldLocation())) {
+            log.debug(
+                    "A new ent trail location has been detected updated list is now {}",
+                    entTrailsSeen);
         }
     }
 
@@ -67,7 +69,7 @@ public class EntTrailService {
 
     public void addEntNpc(NPC npc) {
         int id = npc.getId();
-        if(id < MIN_ENT_ID || id > MAX_ENT_ID) return;
+        if (id < MIN_ENT_ID || id > MAX_ENT_ID) return;
 
         entNpcs.add(npc);
         registerEntLocation(npc);
@@ -82,7 +84,7 @@ public class EntTrailService {
     }
 
     public void updateEntNpcLocations() {
-        for(NPC npc : this.entNpcs) {
+        for (NPC npc : this.entNpcs) {
             registerEntLocation(npc);
         }
     }
@@ -90,8 +92,11 @@ public class EntTrailService {
     private void registerEntLocation(NPC npc) {
         int totemId = getTotemIdForEnt(npc.getId());
         Set<WorldPoint> locations = this.entLocations.getOrDefault(totemId, new HashSet<>());
-        if(locations.add(npc.getWorldLocation())) {
-            log.debug("Updated location list for totem id {} the total tiles we have seen the ent on are now {}", totemId, locations);
+        if (locations.add(npc.getWorldLocation())) {
+            log.debug(
+                    "Updated location list for totem id {} the total tiles we have seen the ent on are now {}",
+                    totemId,
+                    locations);
         }
 
         this.entLocations.put(totemId, locations);
