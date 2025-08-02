@@ -1,12 +1,7 @@
 package com.github.therealguru.totemfletching;
 
 import java.awt.Color;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.ConfigSection;
-import net.runelite.client.config.Range;
-import net.runelite.client.config.Units;
+import net.runelite.client.config.*;
 
 @ConfigGroup("totem-fletching")
 public interface TotemFletchingConfig extends Config {
@@ -23,11 +18,21 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "renderChatboxOptions",
-            name = "Highlight Chatbox Carving Options",
+            name = "Highlight Correct Chatbox Carving Options",
             description = "Highlights which animals to select in the Totem Carving UI",
             section = sectionOverlays,
             position = 0)
-    default boolean renderChatboxOptions() {
+    default boolean highlightCorrectCarvingChoice() {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "maskIncorrectCarvingChoice",
+            name = "Highlight Correct Carving Choices",
+            description = "Whether to mask the incorrect carving choices in the interface",
+            section = sectionOverlays,
+            position = 1)
+    default boolean maskIncorrectCarvingChoice() {
         return true;
     }
 
@@ -36,7 +41,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Show Totem Highlight",
             description = "Draw the highlight over totems",
             section = sectionOverlays,
-            position = 1)
+            position = 2)
     default boolean renderTotemHighlight() {
         return true;
     }
@@ -46,7 +51,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Show Totem Text Overlay",
             description = "Draw the text overlay over totems for animals and decorations",
             section = sectionOverlays,
-            position = 2)
+            position = 3)
     default boolean renderTotemText() {
         return true;
     }
@@ -56,8 +61,18 @@ public interface TotemFletchingConfig extends Config {
             name = "Show Points Text Overlay",
             description = "Draw the text overlay over points",
             section = sectionOverlays,
-            position = 3)
+            position = 4)
     default boolean renderPoints() {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "showZeroPoints",
+            name = "Show Zero Points",
+            description = "Show the points text even if the points are zero",
+            section = sectionAdditional,
+            position = 5)
+    default boolean showZeroPoints() {
         return true;
     }
 
@@ -67,7 +82,7 @@ public interface TotemFletchingConfig extends Config {
             description =
                     "Whether to show the ent trails that need to be stepped on for bonus points",
             section = sectionOverlays,
-            position = 4)
+            position = 6)
     default boolean renderEntTrails() {
         return true;
     }
@@ -79,22 +94,11 @@ public interface TotemFletchingConfig extends Config {
     String sectionColors = "sectionColors";
 
     @ConfigItem(
-            keyName = "carvingInterfaceColor",
-            name = "Carving Highlight Color",
-            description =
-                    "Choose the color used to highlight the correct actions in the carving UI",
-            section = sectionColors,
-            position = 0)
-    default Color carvingInterfaceColor() {
-        return Color.decode("#9CF575");
-    }
-
-    @ConfigItem(
             keyName = "totemCompleteColor",
             name = "Completed Totem",
             description = "Choose the color used for the highlight on completed totems",
             section = sectionColors,
-            position = 1)
+            position = 0)
     default Color totemCompleteColor() {
         return GREEN;
     }
@@ -104,7 +108,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Incomplete Totem",
             description = "Choose the color used for the highlight on incomplete totems",
             section = sectionColors,
-            position = 2)
+            position = 1)
     default Color totemIncompleteColor() {
         return RED;
     }
@@ -114,7 +118,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Totem Text",
             description = "Choose the color used for the text on the totem overlays",
             section = sectionColors,
-            position = 3)
+            position = 2)
     default Color totemTextColor() {
         return DEFAULT_TEXT_COLOR;
     }
@@ -124,7 +128,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Points Text",
             description = "Choose the color used for the text on the points overlays",
             section = sectionColors,
-            position = 4)
+            position = 3)
     default Color pointsTextColor() {
         return DEFAULT_TEXT_COLOR;
     }
@@ -135,7 +139,7 @@ public interface TotemFletchingConfig extends Config {
             description =
                     "Choose the color used to highlight the points tile if the maximum point total has been reached",
             section = sectionColors,
-            position = 5)
+            position = 4)
     default Color pointsCappedColor() {
         return RED;
     }
@@ -145,9 +149,31 @@ public interface TotemFletchingConfig extends Config {
             name = "Ent Trail Color",
             description = "Choose the color used to draw ent trails",
             section = sectionColors,
-            position = 6)
+            position = 5)
     default Color entTrailColor() {
         return Color.decode("#e4fff6");
+    }
+
+    @ConfigItem(
+            keyName = "carvingInterfaceColor",
+            name = "Carving Highlight Color",
+            description =
+                    "Choose the color used to highlight the correct actions in the carving UI",
+            section = sectionColors,
+            position = 6)
+    default Color carvingInterfaceColor() {
+        return Color.decode("#9CF575");
+    }
+
+    @Alpha
+    @ConfigItem(
+            keyName = "carvingInterfaceMask",
+            name = "Carving Mask Color",
+            description = "Choose the color to mask invalid options for carving totems",
+            section = sectionColors,
+            position = 7)
+    default Color carvingMaskColor() {
+        return new Color(64, 64, 64, 204);
     }
 
     @ConfigSection(
@@ -168,21 +194,11 @@ public interface TotemFletchingConfig extends Config {
     }
 
     @ConfigItem(
-            keyName = "showZeroPoints",
-            name = "Show Zero Points",
-            description = "Show the points text even if the points are zero",
-            section = sectionAdditional,
-            position = 1)
-    default boolean showZeroPoints() {
-        return true;
-    }
-
-    @ConfigItem(
             keyName = "unbuiltOffset",
             name = "Unbuilt Totem Offset",
             description = "Choose how high the unbuilt totem text will be from the ground",
             section = sectionAdditional,
-            position = 2)
+            position = 1)
     @Units(Units.PIXELS)
     @Range(max = 800)
     default int unbuiltOffset() {
@@ -194,7 +210,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Built Totem Offset",
             description = "Choose how high the built totem text will be from the ground",
             section = sectionAdditional,
-            position = 3)
+            position = 2)
     @Units(Units.PIXELS)
     @Range(max = 800)
     default int builtOffset() {
@@ -206,7 +222,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Points Offset",
             description = "Choose how high the points text will be from the ground",
             section = sectionAdditional,
-            position = 4)
+            position = 3)
     @Units(Units.PIXELS)
     @Range(max = 800)
     default int pointsOffset() {
