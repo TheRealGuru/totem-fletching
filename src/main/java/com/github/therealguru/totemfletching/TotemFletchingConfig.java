@@ -151,30 +151,30 @@ public interface TotemFletchingConfig extends Config {
     }
 
     @ConfigItem(
-            keyName = "carvingInterfaceColor",
+            keyName = "carvingHighlightColor",
             name = "Carving Highlight",
             description =
                     "Choose the color used to highlight the correct choices in the carving interface",
             section = sectionColors,
             position = 6)
-    default Color carvingInterfaceColor() {
+    default Color carvingHighlightColor() {
         return Color.decode("#9CF575");
     }
 
     @ConfigItem(
-            keyName = "carvingInterfaceBorderWidth",
+            keyName = "carvingHighlightBorderWidth",
             name = "Carving Highlight Border Width",
             description = "Select the border width for the correct choices",
             section = sectionColors,
             position = 7)
     @Units(Units.PIXELS)
     @Range(min = 1, max = 10)
-    default int carvingInterfaceBorderWidth() {
+    default int carvingHighlightBorderWidth() {
         return 2;
     }
 
     @ConfigItem(
-            keyName = "carvingInterfaceMask",
+            keyName = "carvingMaskColor",
             name = "Carving Mask",
             description = "Choose the color to mask the incorrect choices in the carving interface",
             section = sectionColors,
