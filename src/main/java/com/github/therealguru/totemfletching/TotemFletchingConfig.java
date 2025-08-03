@@ -162,14 +162,14 @@ public interface TotemFletchingConfig extends Config {
     }
 
     @ConfigItem(
-            keyName = "carvingInterfaceBorderWith",
+            keyName = "carvingInterfaceBorderWidth",
             name = "Carving Highlight Border Width",
             description = "Select the border width for the correct choices",
             section = sectionColors,
             position = 7)
     @Units(Units.PIXELS)
     @Range(min = 1, max = 10)
-    default int carvingInterfaceBorderWith() {
+    default int carvingInterfaceBorderWidth() {
         return 2;
     }
 

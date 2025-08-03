@@ -69,7 +69,7 @@ public class CarvingActionOverlay extends Overlay {
         if (bounds != null) {
             if (correctChoice && config.highlightCorrectCarvingChoice()) {
                 graphics.setColor(config.carvingInterfaceColor());
-                graphics.setStroke(new BasicStroke(config.carvingInterfaceBorderWith()));
+                graphics.setStroke(new BasicStroke(config.carvingInterfaceBorderWidth()));
                 graphics.draw(bounds);
             } else if (!correctChoice && config.maskIncorrectCarvingChoice()) {
                 graphics.setColor(config.carvingMaskColor());
