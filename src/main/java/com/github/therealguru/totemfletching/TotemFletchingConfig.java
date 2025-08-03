@@ -34,7 +34,7 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "renderTotemText",
-            name = "Show Totem Text Overlay",
+            name = "Show Totem Text",
             description = "Draw the text overlay over totems for animals and decorations",
             section = sectionOverlays,
             position = 1)
@@ -44,7 +44,7 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "renderPoints",
-            name = "Show Points Text Overlay",
+            name = "Show Points Text",
             description = "Draw the text overlay over points",
             section = sectionOverlays,
             position = 2)
@@ -76,7 +76,7 @@ public interface TotemFletchingConfig extends Config {
     @ConfigItem(
             keyName = "maskIncorrectCarvingChoice",
             name = "Mask Incorrect Carving Choices",
-            description = "Mask the incorrect carving choices in the totem carving interface",
+            description = "Mask the incorrect animals in the totem carving interface",
             section = sectionOverlays,
             position = 5)
     default boolean maskIncorrectCarvingChoice() {
@@ -91,8 +91,8 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "totemCompleteColor",
-            name = "Completed Totem",
-            description = "Choose the color used for the highlight on completed totems",
+            name = "Complete Totem",
+            description = "Choose the color used for the highlight on complete totems",
             section = sectionColors,
             position = 0)
     default Color totemCompleteColor() {
@@ -131,7 +131,7 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "pointsCappedColor",
-            name = "Points at Maximum Color",
+            name = "Points Tile at Maximum",
             description =
                     "Choose the color used to highlight the points tile if the maximum point total has been reached",
             section = sectionColors,
@@ -142,7 +142,7 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "entTrailColor",
-            name = "Ent Trail Color",
+            name = "Ent Trail",
             description = "Choose the color used to draw ent trails",
             section = sectionColors,
             position = 5)
@@ -152,9 +152,9 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "carvingInterfaceColor",
-            name = "Carving Highlight Color",
+            name = "Carving Highlight",
             description =
-                    "Choose the color used to highlight the correct actions in the carving interface",
+                    "Choose the color used to highlight the correct choices in the carving interface",
             section = sectionColors,
             position = 6)
     default Color carvingInterfaceColor() {
@@ -164,7 +164,7 @@ public interface TotemFletchingConfig extends Config {
     @ConfigItem(
             keyName = "carvingInterfaceBorderWith",
             name = "Carving Highlight Border Width",
-            description = "Select the border width for the correct actions",
+            description = "Select the border width for the correct choices",
             section = sectionColors,
             position = 7)
     @Units(Units.PIXELS)
@@ -175,8 +175,8 @@ public interface TotemFletchingConfig extends Config {
 
     @ConfigItem(
             keyName = "carvingInterfaceMask",
-            name = "Carving Mask Color",
-            description = "Choose the color to mask the incorrect actions in the carving interface",
+            name = "Carving Mask",
+            description = "Choose the color to mask the incorrect choices in the carving interface",
             section = sectionColors,
             position = 8)
     @Alpha
