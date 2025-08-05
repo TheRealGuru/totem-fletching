@@ -1,7 +1,9 @@
 package com.github.therealguru.totemfletching;
 
+import com.github.therealguru.totemfletching.model.Constants;
 import com.github.therealguru.totemfletching.service.EntTrailService;
 import com.github.therealguru.totemfletching.service.OverlayService;
+import com.github.therealguru.totemfletching.service.ResearchPointService;
 import com.github.therealguru.totemfletching.service.TotemService;
 import com.google.inject.Provides;
 import javax.inject.Inject;
@@ -23,6 +25,7 @@ public class TotemFletchingPlugin extends Plugin {
     @Inject private OverlayService overlayService;
     @Inject private TotemService totemService;
     @Inject private EntTrailService entTrailService;
+    @Inject private ResearchPointService researchPointService;
 
     @Override
     protected void startUp() throws Exception {
@@ -41,7 +44,10 @@ public class TotemFletchingPlugin extends Plugin {
 
     @Subscribe
     public void onVarbitChanged(final VarbitChanged varbitChanged) {
-        if (varbitChanged.getVarbitId() < 17611 || varbitChanged.getVarbitId() > 17754) return;
+        if (varbitChanged.getVarbitId() == Constants.Varps.RESEARCH_POINTS) {
+            researchPointService.onVarbitChanged();
+        }
+        if (varbitChanged.getVarbitId() < Constants.Varps.ENT_TOTEMS_SITE_1_BASE || varbitChanged.getVarbitId() > Constants.Varps.ENT_TOTEMS_SITE_8_ALL_MULTIANIMALS) return;
 
         totemService.onVarbitChanged(varbitChanged);
     }

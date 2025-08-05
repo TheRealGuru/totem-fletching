@@ -228,4 +228,14 @@ public interface TotemFletchingConfig extends Config {
     default int pointsOffset() {
         return 16;
     }
+
+    @ConfigItem(
+        keyName = "renderPanel",
+        name = "Show panel when doing Totem fletching",
+        description = "Highlights which animals to select in the Totem Carving UI",
+        section = sectionOverlays,
+        position = 7)
+    default boolean renderPanel() {
+        return true;
+    }
 }
