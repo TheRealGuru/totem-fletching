@@ -38,10 +38,10 @@ public class PanelOverlay extends OverlayPanel {
     public Dimension render(Graphics2D graphics) {
         if (!config.renderPanel()) return null;
 
-        boolean regionId =
+        boolean isInRegion =
                 TotemRegions.isValid(client.getLocalPlayer().getWorldLocation().getRegionID());
 
-        if (!regionId) return null;
+        if (!isInRegion) return null;
 
         panelComponent.getChildren().add(TitleComponent.builder().text("Vale Totems").build());
 
