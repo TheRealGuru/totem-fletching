@@ -48,7 +48,9 @@ public class TotemFletchingPlugin extends Plugin {
         if (varbitChanged.getVarbitId() == VarPlayerID.ENT_TOTEMS_RESEARCH_POINTS) {
             researchPointService.onVarbitChanged();
         }
-        if (varbitChanged.getVarbitId() < VarbitID.ENT_TOTEMS_SITE_1_BASE || varbitChanged.getVarbitId() > VarbitID.ENT_TOTEMS_SITE_8_ALL_MULTIANIMALS) return;
+        if (varbitChanged.getVarbitId() < VarbitID.ENT_TOTEMS_SITE_1_BASE
+                || varbitChanged.getVarbitId() > VarbitID.ENT_TOTEMS_SITE_8_ALL_MULTIANIMALS)
+            return;
 
         totemService.onVarbitChanged(varbitChanged);
     }

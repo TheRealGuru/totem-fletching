@@ -230,12 +230,12 @@ public interface TotemFletchingConfig extends Config {
     }
 
     @ConfigItem(
-        keyName = "renderPanel",
-        name = "Show panel when doing Totem fletching",
-        description = "Highlights which animals to select in the Totem Carving UI",
-        section = sectionOverlays,
-        position = 7)
+            keyName = "renderPanel",
+            name = "Show widget",
+            description = "Show a helper widget when doing Totem fletching",
+            section = sectionOverlays,
+            position = 7)
     default boolean renderPanel() {
-        return true;
+        return false;
     }
 }

@@ -1,16 +1,15 @@
 package com.github.therealguru.totemfletching.service;
 
 import com.github.therealguru.totemfletching.TotemFletchingConfig;
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.gameval.VarPlayerID;
-
-import javax.inject.Inject;
 
 public class ResearchPointService {
 
     private final Client client;
     private final TotemFletchingConfig config;
-    private Integer RESEARCH_POINTS;
+    private Integer researchPoints;
 
     @Inject
     public ResearchPointService(TotemFletchingConfig config, Client client) {
@@ -20,10 +19,13 @@ public class ResearchPointService {
 
     public void onVarbitChanged() {
         if (!config.renderPanel()) return;
-        RESEARCH_POINTS = client.getVarpValue(VarPlayerID.ENT_TOTEMS_RESEARCH_POINTS);
+        researchPoints = client.getVarpValue(VarPlayerID.ENT_TOTEMS_RESEARCH_POINTS);
     }
 
     public int getResearchPoints() {
-        return RESEARCH_POINTS != null ? RESEARCH_POINTS : client.getVarpValue(VarPlayerID.ENT_TOTEMS_RESEARCH_POINTS);
+        if (researchPoints == null) {
+            researchPoints = client.getVarpValue(VarPlayerID.ENT_TOTEMS_RESEARCH_POINTS);
+        }
+        return researchPoints;
     }
 }

@@ -2,18 +2,16 @@ package com.github.therealguru.totemfletching.overlay;
 
 import com.github.therealguru.totemfletching.TotemFletchingConfig;
 import com.github.therealguru.totemfletching.TotemFletchingPlugin;
-import com.github.therealguru.totemfletching.model.Totem;
 import com.github.therealguru.totemfletching.model.TotemRegions;
 import com.github.therealguru.totemfletching.service.ResearchPointService;
 import com.github.therealguru.totemfletching.service.TotemService;
+import java.awt.*;
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
-
-import javax.inject.Inject;
-import java.awt.*;
 
 public class PanelOverlay extends OverlayPanel {
     private final Client client;
@@ -40,23 +38,28 @@ public class PanelOverlay extends OverlayPanel {
     public Dimension render(Graphics2D graphics) {
         if (!config.renderPanel()) return null;
 
-        boolean regionId = TotemRegions.isValid(client.getLocalPlayer().getWorldLocation().getRegionID());
+        boolean regionId =
+                TotemRegions.isValid(client.getLocalPlayer().getWorldLocation().getRegionID());
 
         if (!regionId) return null;
 
-        panelComponent.getChildren().add(TitleComponent.builder()
-            .text("Vale Totems")
-            .build());
+        panelComponent.getChildren().add(TitleComponent.builder().text("Vale Totems").build());
 
-        panelComponent.getChildren().add(LineComponent.builder()
-            .left("Research points:")
-            .right(String.valueOf(pointService.getResearchPoints()))
-            .build());
+        panelComponent
+                .getChildren()
+                .add(
+                        LineComponent.builder()
+                                .left("Unclaimed offerings:")
+                                .right(String.valueOf(totemService.getTotalPoints()))
+                                .build());
 
-        panelComponent.getChildren().add(LineComponent.builder()
-            .left("Unclaimed points:")
-            .right(String.valueOf(totemService.getTotems().stream().mapToInt(Totem::getPoints).sum() / 100))
-            .build());
+        panelComponent
+                .getChildren()
+                .add(
+                        LineComponent.builder()
+                                .left("Research points:")
+                                .right(String.valueOf(pointService.getResearchPoints()))
+                                .build());
 
         return super.render(graphics);
     }

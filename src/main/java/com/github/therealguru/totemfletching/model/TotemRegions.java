@@ -17,15 +17,15 @@ public enum TotemRegions {
     TotemRegions(int id) {
         this.id = id;
     }
+
     public int getId() {
         return id;
     }
 
-    private static final Set<Integer> VALID_IDS = Arrays.stream(values())
-        .map(TotemRegions::getId)
-        .collect(Collectors.toSet());
+    private static final Set<Integer> VALID_REGION_IDS =
+            Arrays.stream(values()).map(TotemRegions::getId).collect(Collectors.toSet());
 
     public static boolean isValid(int id) {
-        return VALID_IDS.contains(id);
+        return VALID_REGION_IDS.contains(id);
     }
 }

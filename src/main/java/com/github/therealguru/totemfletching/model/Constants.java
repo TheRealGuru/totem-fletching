@@ -10,5 +10,4 @@ public class Constants {
         public static final int SOUTH_WEST = 5427;
         public static final int SOUTH_EAST = 5939;
     }
-
 }

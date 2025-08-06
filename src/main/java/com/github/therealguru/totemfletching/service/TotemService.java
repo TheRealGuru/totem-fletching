@@ -156,4 +156,8 @@ public class TotemService {
                         .findFirst()
                         .orElse(null);
     }
+
+    public int getTotalPoints() {
+        return getTotems().stream().mapToInt(Totem::getPoints).sum();
+    }
 }
