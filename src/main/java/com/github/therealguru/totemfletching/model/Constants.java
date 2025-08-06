@@ -11,9 +11,4 @@ public class Constants {
         public static final int SOUTH_EAST = 5939;
     }
 
-    public static class Varps {
-        public static final int RESEARCH_POINTS = 4764;
-        public static final int ENT_TOTEMS_SITE_1_BASE = 17611;
-        public static final int ENT_TOTEMS_SITE_8_ALL_MULTIANIMALS = 17754;
-    }
 }

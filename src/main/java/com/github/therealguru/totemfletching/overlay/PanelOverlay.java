@@ -10,6 +10,7 @@ import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
+import net.runelite.client.ui.overlay.components.TitleComponent;
 
 import javax.inject.Inject;
 import java.awt.*;
@@ -42,6 +43,10 @@ public class PanelOverlay extends OverlayPanel {
         boolean regionId = TotemRegions.isValid(client.getLocalPlayer().getWorldLocation().getRegionID());
 
         if (!regionId) return null;
+
+        panelComponent.getChildren().add(TitleComponent.builder()
+            .text("Vale Totems")
+            .build());
 
         panelComponent.getChildren().add(LineComponent.builder()
             .left("Research points:")
