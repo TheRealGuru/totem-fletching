@@ -68,8 +68,8 @@ public class CarvingActionOverlay extends Overlay {
         Rectangle bounds = childWidget.getBounds();
         if (bounds != null) {
             if (correctChoice && config.highlightCorrectCarvingChoice()) {
-                graphics.setColor(config.carvingInterfaceColor());
-                graphics.setStroke(new BasicStroke(2));
+                graphics.setColor(config.carvingHighlightColor());
+                graphics.setStroke(new BasicStroke(config.carvingHighlightBorderWidth()));
                 graphics.draw(bounds);
             } else if (!correctChoice && config.maskIncorrectCarvingChoice()) {
                 graphics.setColor(config.carvingMaskColor());
