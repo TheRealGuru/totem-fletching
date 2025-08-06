@@ -2,6 +2,7 @@ package com.github.therealguru.totemfletching;
 
 import com.github.therealguru.totemfletching.service.EntTrailService;
 import com.github.therealguru.totemfletching.service.OverlayService;
+import com.github.therealguru.totemfletching.service.ResearchPointService;
 import com.github.therealguru.totemfletching.service.TotemService;
 import com.google.inject.Provides;
 import javax.inject.Inject;
@@ -9,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.*;
+import net.runelite.api.gameval.VarPlayerID;
+import net.runelite.api.gameval.VarbitID;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -23,6 +26,7 @@ public class TotemFletchingPlugin extends Plugin {
     @Inject private OverlayService overlayService;
     @Inject private TotemService totemService;
     @Inject private EntTrailService entTrailService;
+    @Inject private ResearchPointService researchPointService;
 
     @Override
     protected void startUp() throws Exception {
@@ -41,7 +45,12 @@ public class TotemFletchingPlugin extends Plugin {
 
     @Subscribe
     public void onVarbitChanged(final VarbitChanged varbitChanged) {
-        if (varbitChanged.getVarbitId() < 17611 || varbitChanged.getVarbitId() > 17754) return;
+        if (varbitChanged.getVarbitId() == VarPlayerID.ENT_TOTEMS_RESEARCH_POINTS) {
+            researchPointService.onVarbitChanged();
+        }
+        if (varbitChanged.getVarbitId() < VarbitID.ENT_TOTEMS_SITE_1_BASE
+                || varbitChanged.getVarbitId() > VarbitID.ENT_TOTEMS_SITE_8_ALL_MULTIANIMALS)
+            return;
 
         totemService.onVarbitChanged(varbitChanged);
     }

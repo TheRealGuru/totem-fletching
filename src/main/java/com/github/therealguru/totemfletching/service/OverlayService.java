@@ -2,6 +2,7 @@ package com.github.therealguru.totemfletching.service;
 
 import com.github.therealguru.totemfletching.overlay.CarvingActionOverlay;
 import com.github.therealguru.totemfletching.overlay.EntTrailOverlay;
+import com.github.therealguru.totemfletching.overlay.PanelOverlay;
 import com.github.therealguru.totemfletching.overlay.TotemFletchingOverlay;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -16,6 +17,7 @@ public class OverlayService {
     @Inject private TotemFletchingOverlay gameOverlay;
     @Inject private CarvingActionOverlay carvingOverlay;
     @Inject private EntTrailOverlay entTrailOverlay;
+    @Inject private PanelOverlay panelOverlay;
 
     public OverlayService() {}
 
@@ -23,11 +25,13 @@ public class OverlayService {
         overlayManager.add(gameOverlay);
         overlayManager.add(carvingOverlay);
         overlayManager.add(entTrailOverlay);
+        overlayManager.add(panelOverlay);
     }
 
     public void unregisterOverlays() {
         overlayManager.remove(gameOverlay);
         overlayManager.remove(carvingOverlay);
         overlayManager.remove(entTrailOverlay);
+        overlayManager.remove(panelOverlay);
     }
 }

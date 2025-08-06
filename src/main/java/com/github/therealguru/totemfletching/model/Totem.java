@@ -50,6 +50,10 @@ public class Totem {
         return progress.getOrDefault(totemTier, 0);
     }
 
+    public int getPoints() {
+        return points;
+    }
+
     public boolean isBottomComplete() {
         return getValue(TotemTier.LOW) > 4;
     }

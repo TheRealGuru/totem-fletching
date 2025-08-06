@@ -228,4 +228,14 @@ public interface TotemFletchingConfig extends Config {
     default int pointsOffset() {
         return 16;
     }
+
+    @ConfigItem(
+            keyName = "renderPanel",
+            name = "Show widget",
+            description = "Show a helper widget when doing Totem fletching",
+            section = sectionOverlays,
+            position = 7)
+    default boolean renderPanel() {
+        return false;
+    }
 }
