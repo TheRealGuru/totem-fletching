@@ -3,6 +3,7 @@ package com.github.therealguru.totemfletching.overlay;
 import com.github.therealguru.totemfletching.TotemFletchingConfig;
 import com.github.therealguru.totemfletching.TotemFletchingPlugin;
 import com.github.therealguru.totemfletching.model.Totem;
+import com.github.therealguru.totemfletching.model.TotemHighlightMode;
 import com.github.therealguru.totemfletching.service.TotemService;
 import java.awt.*;
 import java.util.Map;
@@ -65,11 +66,37 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     private void renderTotemHighlight(Graphics2D graphics2D, Totem totem) {
-        if (!config.renderTotemHighlight()) return;
+
+        TotemHighlightMode mode = config.renderTotemHighlight();
+        if (mode == TotemHighlightMode.NONE) return;
 
         if (totem.hasTotemStarted()) {
             Shape shape = totem.getTotemGameObject().getClickbox();
             if (shape != null) {
+                final Color highlight = getTotemColor(totem);
+
+                if (mode == TotemHighlightMode.FILL) {
+                    final int alpha = config.totemFillAlpha();
+                    final Color fill =
+                            new Color(
+                                    highlight.getRed(),
+                                    highlight.getGreen(),
+                                    highlight.getBlue(),
+                                    alpha);
+
+                    graphics2D.setRenderingHint(
+                            RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    final Composite oldComposite = graphics2D.getComposite();
+                    final Color oldColor = graphics2D.getColor();
+
+                    graphics2D.setComposite(AlphaComposite.SrcOver);
+                    graphics2D.setColor(fill);
+                    graphics2D.fill(shape);
+
+                    graphics2D.setColor(oldColor);
+                    graphics2D.setComposite(oldComposite);
+                }
+
                 OverlayUtil.renderPolygon(graphics2D, shape, getTotemColor(totem));
             }
         } else {
