@@ -1,8 +1,7 @@
 package com.github.therealguru.totemfletching;
 
-import java.awt.Color;
-
 import com.github.therealguru.totemfletching.model.TotemHighlightMode;
+import java.awt.Color;
 import net.runelite.client.config.Alpha;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
@@ -40,7 +39,9 @@ public interface TotemFletchingConfig extends Config {
             section = sectionOverlays,
             description = "Opacity of the filled totem highlight (0-255)",
             position = 1)
-    default int totemFillAlpha() { return 80; }
+    default int totemFillAlpha() {
+        return 80;
+    }
 
     @ConfigItem(
             keyName = "renderTotemText",

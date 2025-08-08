@@ -1,7 +1,6 @@
 package com.github.therealguru.totemfletching.model;
 
-public enum TotemHighlightMode
-{
+public enum TotemHighlightMode {
     NONE,
     OUTLINE,
     FILL

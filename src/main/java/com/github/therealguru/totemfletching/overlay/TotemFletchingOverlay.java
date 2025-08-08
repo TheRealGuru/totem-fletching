@@ -77,9 +77,15 @@ public class TotemFletchingOverlay extends Overlay {
 
                 if (mode == TotemHighlightMode.FILL) {
                     final int alpha = config.totemFillAlpha();
-                    final Color fill = new Color(highlight.getRed(), highlight.getGreen(), highlight.getBlue(), alpha);
+                    final Color fill =
+                            new Color(
+                                    highlight.getRed(),
+                                    highlight.getGreen(),
+                                    highlight.getBlue(),
+                                    alpha);
 
-                    graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    graphics2D.setRenderingHint(
+                            RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                     final Composite oldComposite = graphics2D.getComposite();
                     final Color oldColor = graphics2D.getColor();
 
