@@ -1,6 +1,8 @@
 package com.github.therealguru.totemfletching;
 
 import java.awt.Color;
+
+import com.github.therealguru.totemfletching.model.TotemHighlightMode;
 import net.runelite.client.config.Alpha;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
@@ -28,16 +30,24 @@ public interface TotemFletchingConfig extends Config {
             description = "Draw the highlight over totems",
             section = sectionOverlays,
             position = 0)
-    default boolean renderTotemHighlight() {
-        return true;
+    default TotemHighlightMode renderTotemHighlight() {
+        return TotemHighlightMode.OUTLINE;
     }
+
+    @ConfigItem(
+            keyName = "totemFillAlpha",
+            name = "Totem Fill Opacity",
+            section = sectionOverlays,
+            description = "Opacity of the filled totem highlight (0-255)",
+            position = 1)
+    default int totemFillAlpha() { return 80; }
 
     @ConfigItem(
             keyName = "renderTotemText",
             name = "Show Totem Text",
             description = "Draw the text overlay over totems for animals and decorations",
             section = sectionOverlays,
-            position = 1)
+            position = 2)
     default boolean renderTotemText() {
         return true;
     }
@@ -47,7 +57,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Show Points Text",
             description = "Draw the text overlay over points",
             section = sectionOverlays,
-            position = 2)
+            position = 3)
     default boolean renderPoints() {
         return true;
     }
@@ -58,7 +68,7 @@ public interface TotemFletchingConfig extends Config {
             description =
                     "Whether to show the ent trails that need to be stepped on for bonus points",
             section = sectionOverlays,
-            position = 3)
+            position = 4)
     default boolean renderEntTrails() {
         return true;
     }
@@ -68,7 +78,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Highlight Correct Carving Choices",
             description = "Highlight which animals to select in the totem carving interface",
             section = sectionOverlays,
-            position = 4)
+            position = 5)
     default boolean highlightCorrectCarvingChoice() {
         return true;
     }
@@ -78,7 +88,7 @@ public interface TotemFletchingConfig extends Config {
             name = "Mask Incorrect Carving Choices",
             description = "Mask the incorrect animals in the totem carving interface",
             section = sectionOverlays,
-            position = 5)
+            position = 6)
     default boolean maskIncorrectCarvingChoice() {
         return true;
     }
