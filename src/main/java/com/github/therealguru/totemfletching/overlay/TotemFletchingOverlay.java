@@ -43,7 +43,7 @@ public class TotemFletchingOverlay extends Overlay {
     @Override
     public Dimension render(Graphics2D graphics2D) {
         totemService.getTotems().stream()
-                .filter(Totem::isRenderable)
+                .filter(totem -> totem.isRenderable(client))
                 .forEach((totem) -> renderTotem(graphics2D, totem));
         return null;
     }
@@ -107,7 +107,7 @@ public class TotemFletchingOverlay extends Overlay {
 
     Optional<String> getTotemText(Totem totem) {
         if (!totem.isCarved()) {
-            return Optional.of(getAnimalText(totem));
+            return Optional.of(totem.getTotemId() + " | " + getAnimalText(totem));
         } else if (!totem.isDecorated() || config.keepDecoratedText()) {
             return Optional.of(totem.getDecoration() + " / 4");
         } else {

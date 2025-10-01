@@ -3,6 +3,7 @@ package com.github.therealguru.totemfletching.model;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
+import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 
 @Data
@@ -70,8 +71,13 @@ public class Totem {
         return varbit >= startingVarbit && varbit <= (startingVarbit + 17);
     }
 
-    public boolean isRenderable() {
-        return totemGameObject != null && pointsGameObject != null;
+    public boolean isRenderable(Client client) {
+        return totemGameObject != null
+                && pointsGameObject != null
+                && totemGameObject
+                                .getWorldLocation()
+                                .distanceTo(client.getLocalPlayer().getWorldLocation())
+                        <= 16;
     }
 
     public boolean isPointCapped() {
