@@ -1,13 +1,42 @@
 package com.github.therealguru.totemfletching.model;
 
 public class Constants {
-
-    public static class Regions {
-        public static final int NORTH = 5684;
-        public static final int NORTH_WEST = 5428;
-        public static final int NORTH_EAST = 5940;
-        public static final int SOUTH = 5683;
-        public static final int SOUTH_WEST = 5427;
-        public static final int SOUTH_EAST = 5939;
-    }
+    // Slightly modified Wiki polyline of Auburn Valley
+    public static final int[][] ABURNVALE_POLYGON =
+            new int[][] {
+                {1344, 3297},
+                {1333, 3312},
+                {1333, 3322},
+                {1325, 3330},
+                {1325, 3333},
+                {1330, 3338},
+                {1330, 3348},
+                {1340, 3348},
+                {1348, 3356},
+                {1348, 3380},
+                {1380, 3400},
+                {1400, 3400},
+                {1418, 3394},
+                {1480, 3364},
+                {1504, 3364},
+                {1504, 3312},
+                {1484, 3312},
+                {1468, 3304},
+                {1460, 3296},
+                {1460, 3292},
+                {1448, 3286},
+                {1421, 3286},
+                {1421, 3286},
+                {1421, 3275},
+                {1411, 3270},
+                {1402, 3270},
+                {1402, 3268},
+                {1401, 3267},
+                {1401, 3266},
+                {1400, 3266},
+                {1400, 3263},
+                {1399, 3262},
+                {1399, 3259},
+                {1365, 3259}
+            };
 }
