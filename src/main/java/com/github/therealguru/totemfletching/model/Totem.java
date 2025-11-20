@@ -74,10 +74,7 @@ public class Totem {
     public boolean isRenderable(Client client) {
         return totemGameObject != null
                 && pointsGameObject != null
-                && totemGameObject
-                                .getWorldLocation()
-                                .distanceTo(client.getLocalPlayer().getWorldLocation())
-                        <= 16;
+                && TotemRegion.isInsideAuburnvale(client.getLocalPlayer().getWorldLocation());
     }
 
     public boolean isPointCapped() {

@@ -2,6 +2,7 @@ package com.github.therealguru.totemfletching.overlay;
 
 import com.github.therealguru.totemfletching.TotemFletchingConfig;
 import com.github.therealguru.totemfletching.TotemFletchingPlugin;
+import com.github.therealguru.totemfletching.model.TotemRegion;
 import com.github.therealguru.totemfletching.service.EntTrailService;
 import java.awt.*;
 import javax.inject.Inject;
@@ -15,6 +16,7 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 public class EntTrailOverlay extends Overlay {
     private final EntTrailService service;
     private final TotemFletchingConfig config;
+    private final Client client;
 
     @Inject
     public EntTrailOverlay(
@@ -27,6 +29,7 @@ public class EntTrailOverlay extends Overlay {
         setLayer(OverlayLayer.ABOVE_SCENE);
         this.service = service;
         this.config = config;
+        this.client = client;
     }
 
     @Override
@@ -34,6 +37,9 @@ public class EntTrailOverlay extends Overlay {
         if (!config.renderEntTrails()) {
             return null;
         }
+
+        if (!TotemRegion.isInsideAuburnvale(client.getLocalPlayer().getWorldLocation()))
+            return null;
 
         for (GameObject object : service.getInactiveEntTrails()) {
             if (object == null) continue;
