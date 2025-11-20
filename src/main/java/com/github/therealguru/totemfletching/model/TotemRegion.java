@@ -1,11 +1,11 @@
 package com.github.therealguru.totemfletching.model;
 
-import net.runelite.api.coords.WorldPoint;
-
 import java.awt.Polygon;
+import net.runelite.api.coords.WorldPoint;
 
 public class TotemRegion {
     public static final Polygon AUBURNVALE_POLYGON = new Polygon();
+
     // Slightly modified Wiki polyline of Auburn Valley
     static {
         AUBURNVALE_POLYGON.addPoint(1344, 3297);
