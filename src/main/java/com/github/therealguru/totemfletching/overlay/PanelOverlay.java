@@ -2,7 +2,7 @@ package com.github.therealguru.totemfletching.overlay;
 
 import com.github.therealguru.totemfletching.TotemFletchingConfig;
 import com.github.therealguru.totemfletching.TotemFletchingPlugin;
-import com.github.therealguru.totemfletching.model.TotemRegions;
+import com.github.therealguru.totemfletching.model.TotemRegion;
 import com.github.therealguru.totemfletching.service.ResearchPointService;
 import com.github.therealguru.totemfletching.service.TotemService;
 import java.awt.*;
@@ -38,10 +38,8 @@ public class PanelOverlay extends OverlayPanel {
     public Dimension render(Graphics2D graphics) {
         if (!config.renderPanel()) return null;
 
-        boolean isInRegion =
-                TotemRegions.isValid(client.getLocalPlayer().getWorldLocation().getRegionID());
-
-        if (!isInRegion) return null;
+        if (!TotemRegion.isInsideAuburnvale(client.getLocalPlayer().getWorldLocation()))
+            return null;
 
         panelComponent.getChildren().add(TitleComponent.builder().text("Vale Totems").build());
 
