@@ -4,6 +4,7 @@ import com.github.therealguru.totemfletching.service.EntTrailService;
 import com.github.therealguru.totemfletching.service.ResearchPointService;
 import com.github.therealguru.totemfletching.service.TotemService;
 import javax.inject.Inject;
+import lombok.RequiredArgsConstructor;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.*;
@@ -11,13 +12,13 @@ import net.runelite.api.gameval.VarPlayerID;
 import net.runelite.api.gameval.VarbitID;
 import net.runelite.client.eventbus.Subscribe;
 
+@RequiredArgsConstructor(onConstructor_ = @Inject)
 public class PluginEventListener {
 
-    @Inject private Client client;
-
-    @Inject private TotemService totemService;
-    @Inject private EntTrailService entTrailService;
-    @Inject private ResearchPointService researchPointService;
+    private final Client client;
+    private final TotemService totemService;
+    private final EntTrailService entTrailService;
+    private final ResearchPointService researchPointService;
 
     @Subscribe
     public void onVarbitChanged(final VarbitChanged varbitChanged) {
