@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.inject.Singleton;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.GameObject;
 import net.runelite.api.Player;
@@ -133,10 +132,10 @@ public class TotemService {
     }
 
     /**
-     * Returns the carved status for each animal on the given totem.
-     * The map contains animal IDs as keys and whether they have been carved as values.
-     * A value of {@code true} means the animal has already been carved on this totem.
-     * A value of {@code false} means the animal has not been carved yet.
+     * Returns the carved status for each animal on the given totem. The map contains animal IDs as
+     * keys and whether they have been carved as values. A value of {@code true} means the animal
+     * has already been carved on this totem. A value of {@code false} means the animal has not been
+     * carved yet.
      *
      * @param totem the totem to check
      * @return a map of animal ID to carved status
@@ -158,9 +157,7 @@ public class TotemService {
     }
 
     public void updateClosestTotem(Player player) {
-        closestTotem =
-                findClosestTotem(player)
-                        .orElse(null);
+        closestTotem = findClosestTotem(player).orElse(null);
     }
 
     private Optional<Totem> findClosestTotem(Player player) {

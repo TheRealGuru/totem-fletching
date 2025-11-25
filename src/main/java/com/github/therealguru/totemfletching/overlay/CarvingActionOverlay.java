@@ -44,9 +44,7 @@ public class CarvingActionOverlay extends Overlay {
 
         if (!isCarvingWidget()) return null;
 
-        totemService
-                .getClosestTotem()
-                .ifPresent(totem -> renderCarvingChoices(graphics2D, totem));
+        totemService.getClosestTotem().ifPresent(totem -> renderCarvingChoices(graphics2D, totem));
 
         return null;
     }

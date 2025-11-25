@@ -21,9 +21,7 @@ public class EntTrailService {
     private final List<GameObject> entTrails = new ArrayList<>();
 
     public List<GameObject> getInactiveEntTrails() {
-        return entTrails.stream()
-                .filter(this::isInactiveEntTrail)
-                .collect(Collectors.toList());
+        return entTrails.stream().filter(this::isInactiveEntTrail).collect(Collectors.toList());
     }
 
     private boolean isInactiveEntTrail(GameObject entTrail) {
