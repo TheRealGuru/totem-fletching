@@ -106,13 +106,17 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     Optional<String> getTotemText(Totem totem) {
-        if (!totem.isCarved()) {
-            return Optional.of(getAnimalText(totem));
-        } else if (!totem.isDecorated() || config.keepDecoratedText()) {
-            return Optional.of(totem.getDecoration() + " / 4");
-        } else {
+        if (totem.isCarved() && totem.isDecorated() && !config.keepDecoratedText()) {
             return Optional.empty();
         }
+
+        String baseText = totem.isCarved() ? totem.getDecoration() + " / 4" : getAnimalText(totem);
+
+        return Optional.of(appendTotemId(baseText, totem.getTotemId()));
+    }
+
+    private String appendTotemId(String text, int totemId) {
+        return config.showTotemId() ? text + " [id: " + totemId + "]" : text;
     }
 
     private String getAnimalText(final Totem totem) {

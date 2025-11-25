@@ -1,17 +1,21 @@
 package com.github.therealguru.totemfletching.listener;
 
+import com.github.therealguru.totemfletching.TotemFletchingConfig;
 import com.github.therealguru.totemfletching.service.EntTrailService;
 import com.github.therealguru.totemfletching.service.ResearchPointService;
 import com.github.therealguru.totemfletching.service.TotemService;
 import javax.inject.Inject;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.*;
 import net.runelite.api.gameval.VarPlayerID;
 import net.runelite.api.gameval.VarbitID;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 
+@Slf4j
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class PluginEventListener {
 
@@ -19,6 +23,7 @@ public class PluginEventListener {
     private final TotemService totemService;
     private final EntTrailService entTrailService;
     private final ResearchPointService researchPointService;
+    private final TotemFletchingConfig config;
 
     @Subscribe
     public void onVarbitChanged(final VarbitChanged varbitChanged) {
@@ -50,6 +55,12 @@ public class PluginEventListener {
             totemService.clearGameObjects();
             entTrailService.clearEntTrails();
         }
+    }
+
+    @Subscribe
+    public void onConfigChanged(ConfigChanged configChanged) {
+        log.debug("Config has reloaded {}", config.notificationDecayTotem2());
+        totemService.onConfigChange(config);
     }
 
     @Subscribe

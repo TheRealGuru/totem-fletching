@@ -2,13 +2,7 @@ package com.github.therealguru.totemfletching;
 
 import com.github.therealguru.totemfletching.model.TotemHighlightMode;
 import java.awt.Color;
-import net.runelite.client.config.Alpha;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.ConfigSection;
-import net.runelite.client.config.Range;
-import net.runelite.client.config.Units;
+import net.runelite.client.config.*;
 
 @ConfigGroup("totem-fletching")
 public interface TotemFletchingConfig extends Config {
@@ -92,6 +86,27 @@ public interface TotemFletchingConfig extends Config {
             position = 6)
     default boolean maskIncorrectCarvingChoice() {
         return true;
+    }
+
+    @ConfigItem(
+            keyName = "renderPanel",
+            name = "Show widget",
+            description = "Show a helper widget when doing Totem fletching",
+            section = sectionOverlays,
+            position = 7)
+    default boolean renderPanel() {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "showTotemId",
+            name = "Show Totem Id's",
+            description =
+                    "Use this to help you  determine which totem is which for notification settings",
+            section = sectionOverlays,
+            position = 8)
+    default boolean showTotemId() {
+        return false;
     }
 
     @ConfigSection(
@@ -258,13 +273,97 @@ public interface TotemFletchingConfig extends Config {
         return 16;
     }
 
+    @ConfigSection(
+            name = "Notification Settings",
+            description = "Enable/Disable Totem Decay Notifications",
+            position = 3)
+    String sectionNotifications = "sectionNotifications";
+
     @ConfigItem(
-            keyName = "renderPanel",
-            name = "Show widget",
-            description = "Show a helper widget when doing Totem fletching",
-            section = sectionOverlays,
+            keyName = "notificationDecayTotem1",
+            name = "Notification for Totem 1 Decay",
+            description =
+                    "This notification will trigger when totem 1 has decayed. Enable totem id's to see which totem this is.",
+            section = sectionNotifications,
+            position = 0)
+    default Notification notificationDecayTotem1() {
+        return Notification.OFF;
+    }
+
+    @ConfigItem(
+            keyName = "notificationDecayTotem2",
+            name = "Notification for Totem 2 Decay",
+            description =
+                    "This notification will trigger when totem 2 has decayed. Enable totem id's to see which totem this is.",
+            section = sectionNotifications,
+            position = 1)
+    default Notification notificationDecayTotem2() {
+        return Notification.OFF;
+    }
+
+    @ConfigItem(
+            keyName = "notificationDecayTotem3",
+            name = "Notification for Totem 3 Decay",
+            description =
+                    "This notification will trigger when totem 3 has decayed. Enable totem id's to see which totem this is.",
+            section = sectionNotifications,
+            position = 2)
+    default Notification notificationDecayTotem3() {
+        return Notification.OFF;
+    }
+
+    @ConfigItem(
+            keyName = "notificationDecayTotem4",
+            name = "Notification for Totem 4 Decay",
+            description =
+                    "This notification will trigger when totem 4 has decayed. Enable totem id's to see which totem this is.",
+            section = sectionNotifications,
+            position = 3)
+    default Notification notificationDecayTotem4() {
+        return Notification.OFF;
+    }
+
+    @ConfigItem(
+            keyName = "notificationDecayTotem5",
+            name = "Notification for Totem 5 Decay",
+            description =
+                    "This notification will trigger when totem 5 has decayed. Enable totem id's to see which totem this is.",
+            section = sectionNotifications,
+            position = 4)
+    default Notification notificationDecayTotem5() {
+        return Notification.OFF;
+    }
+
+    @ConfigItem(
+            keyName = "notificationDecayTotem6",
+            name = "Notification for Totem 6 Decay",
+            description =
+                    "This notification will trigger when totem 6 has decayed. Enable totem id's to see which totem this is.",
+            section = sectionNotifications,
+            position = 5)
+    default Notification notificationDecayTotem6() {
+        return Notification.OFF;
+    }
+
+    @ConfigItem(
+            keyName = "notificationDecayTotem7",
+            name = "Notification for Totem 7 Decay",
+            description =
+                    "This notification will trigger when totem 7 has decayed. Enable totem id's to see which totem this is.",
+            section = sectionNotifications,
+            position = 6)
+    default Notification notificationDecayTotem7() {
+        return Notification.OFF;
+    }
+
+    @ConfigItem(
+            keyName = "notificationDecayTotem8",
+            name = "Notification for Totem 8 Decay",
+            description =
+                    "This notification will trigger when totem 8 has decayed. Enable totem id's to see which totem this is.",
+            section = sectionNotifications,
             position = 7)
-    default boolean renderPanel() {
-        return false;
+    default Notification notificationDecayTotem8() {
+        return Notification.OFF;
     }
 }

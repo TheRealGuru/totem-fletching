@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
+import net.runelite.client.config.Notification;
 
 @Getter
 @Setter
@@ -18,6 +19,7 @@ public class Totem {
     private int totemGameObjectId;
     private int pointsGameObjectId;
     private int startingVarbit;
+    private Notification notification;
     private GameObject totemGameObject;
     private GameObject pointsGameObject;
     private boolean carved = false;
@@ -28,11 +30,17 @@ public class Totem {
     private Map<TotemTier, Integer> progress = new HashMap<>();
     private int points = 0;
 
-    public Totem(int totemId, int totemGameObjectId, int pointsGameObjectId, int startingVarbit) {
+    public Totem(
+            int totemId,
+            int totemGameObjectId,
+            int pointsGameObjectId,
+            int startingVarbit,
+            Notification notification) {
         this.totemId = totemId;
         this.totemGameObjectId = totemGameObjectId;
         this.pointsGameObjectId = pointsGameObjectId;
         this.startingVarbit = startingVarbit;
+        this.notification = notification;
         this.progress.put(TotemTier.LOW, 0);
         this.progress.put(TotemTier.MID, 0);
         this.progress.put(TotemTier.TOP, 0);
