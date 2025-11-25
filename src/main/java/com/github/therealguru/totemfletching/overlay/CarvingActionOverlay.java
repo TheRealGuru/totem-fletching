@@ -42,12 +42,17 @@ public class CarvingActionOverlay extends Overlay {
         if (!config.highlightCorrectCarvingChoice() && !config.maskIncorrectCarvingChoice())
             return null;
 
-        Totem totem = totemService.getClosestTotem();
-        if (totem == null) return null;
-
         if (!isCarvingWidget()) return null;
 
-        Map<Integer, Boolean> carvedState = totemService.getAnimalsProgress(totem);
+        totemService
+                .getClosestTotem()
+                .ifPresent(totem -> renderCarvingChoices(graphics2D, totem));
+
+        return null;
+    }
+
+    private void renderCarvingChoices(Graphics2D graphics2D, Totem totem) {
+        Map<Integer, Boolean> carvedState = totemService.getCarvedAnimalsStatus(totem);
         for (int i = 0; i < ANIMAL_COUNT; i++) {
             Widget carvingWidget = client.getWidget(FIRST_CARVING_WIDGET + i);
             if (carvingWidget != null && !carvingWidget.isHidden()) {
@@ -57,8 +62,6 @@ public class CarvingActionOverlay extends Overlay {
                 renderOverlay(graphics2D, carvingWidget, !isCarvedOrIncorrectChoice);
             }
         }
-
-        return null;
     }
 
     private void renderOverlay(Graphics2D graphics, Widget carvingWidget, boolean correctChoice) {

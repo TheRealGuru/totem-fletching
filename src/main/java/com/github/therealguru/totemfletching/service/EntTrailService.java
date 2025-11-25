@@ -20,21 +20,23 @@ public class EntTrailService {
 
     private final List<GameObject> entTrails = new ArrayList<>();
 
-    public EntTrailService() {}
-
     public List<GameObject> getInactiveEntTrails() {
         return entTrails.stream()
-                .filter(entTrail -> entTrail.getRenderable() instanceof DynamicObject)
-                .filter(
-                        entTrail ->
-                                ((DynamicObject) entTrail.getRenderable()).getAnimation() != null)
-                .filter(
-                        entTrail ->
-                                ENT_TRAIL_INACTIVE_ANIMATION_IDS.contains(
-                                        ((DynamicObject) entTrail.getRenderable())
-                                                .getAnimation()
-                                                .getId()))
+                .filter(this::isInactiveEntTrail)
                 .collect(Collectors.toList());
+    }
+
+    private boolean isInactiveEntTrail(GameObject entTrail) {
+        if (!(entTrail.getRenderable() instanceof DynamicObject)) {
+            return false;
+        }
+
+        DynamicObject dynamicObject = (DynamicObject) entTrail.getRenderable();
+        if (dynamicObject.getAnimation() == null) {
+            return false;
+        }
+
+        return ENT_TRAIL_INACTIVE_ANIMATION_IDS.contains(dynamicObject.getAnimation().getId());
     }
 
     public void addEntTrail(GameObjectSpawned spawned) {

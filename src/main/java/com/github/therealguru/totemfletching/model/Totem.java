@@ -2,11 +2,14 @@ package com.github.therealguru.totemfletching.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Data;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 
-@Data
+@Getter
+@Setter
 public class Totem {
 
     private static final int MAXIMUM_POINTS = 15000;
@@ -79,5 +82,18 @@ public class Totem {
 
     public boolean isPointCapped() {
         return points >= MAXIMUM_POINTS;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Totem totem = (Totem) o;
+        return totemId == totem.totemId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(totemId);
     }
 }

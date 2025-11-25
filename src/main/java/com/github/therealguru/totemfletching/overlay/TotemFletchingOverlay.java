@@ -97,7 +97,7 @@ public class TotemFletchingOverlay extends Overlay {
                     graphics2D.setComposite(oldComposite);
                 }
 
-                OverlayUtil.renderPolygon(graphics2D, shape, getTotemColor(totem));
+                OverlayUtil.renderPolygon(graphics2D, shape, highlight);
             }
         } else {
             OverlayUtil.renderTileOverlay(
@@ -116,7 +116,7 @@ public class TotemFletchingOverlay extends Overlay {
     }
 
     private String getAnimalText(final Totem totem) {
-        Map<Integer, Boolean> animalData = totemService.getAnimalsProgress(totem);
+        Map<Integer, Boolean> animalData = totemService.getCarvedAnimalsStatus(totem);
         StringBuilder text = new StringBuilder();
         for (Map.Entry<Integer, Boolean> entry : animalData.entrySet()) {
             if (entry.getValue()) continue;
